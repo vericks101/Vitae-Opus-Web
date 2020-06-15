@@ -1,2 +1,2 @@
-# ProRep
-A repository to represent the ProRep project.
+# Profession
+A repository to represent the Profession project.
