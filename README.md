@@ -1,2 +1,3 @@
-# Profession
-A repository to represent the Profession project.
+#Profession
+
+This is a repository to represent the Profession project.
