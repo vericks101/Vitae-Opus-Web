@@ -1,3 +1,3 @@
-#Opus-Vitae
+#Vitae-Opus
 
-This is a repository to represent the Opus Vitae project.
+This is a repository to represent the Vitae Opus project.
