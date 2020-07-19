@@ -10,6 +10,8 @@ import { HeaderComponent } from './components/layout/header/header.component';
 import { AddTodoComponent } from './components/add-todo/add-todo.component';
 import { AboutComponent } from './components/pages/about/about.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProjectItemComponent } from './components/project-item/project-item.component'
+
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,6 +22,8 @@ import {MatInputModule} from '@angular/material/input';
 import { ProjectsComponent } from './components/projects/projects.component';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatCardModule} from '@angular/material/card';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     HeaderComponent,
     AddTodoComponent,
     AboutComponent,
-    ProjectsComponent
+    ProjectsComponent,
+    ProjectItemComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +51,9 @@ import {MatGridListModule} from '@angular/material/grid-list';
     FormsModule,
     MatInputModule,
     MatDividerModule,
-    MatGridListModule
+    MatGridListModule,
+    MatCardModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -9,7 +9,7 @@ import { FormControl } from '@angular/forms';
 export class HeaderComponent implements OnInit {
   tags = new FormControl();
 
-  tagsList: string[] = ['Javascript', 'HTML', 'CSS', 'Java', 'C#', 'C++'];
+  tagsList: string[] = ['JavaScript', 'HTML', 'CSS', 'Java', 'C#', 'C++'];
 
   constructor() { }
 

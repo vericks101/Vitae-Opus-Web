@@ -1,0 +1,40 @@
+.card {
+    margin:2em;
+    padding-top:0;
+    padding-left:0;
+    padding-right:0
+}
+
+.card-title {
+    background:rgba(0,0,0,.06); 
+    padding:20px 20px;
+    width:100%;
+}
+
+.example-icon1 {
+    float:right
+}
+
+.card-content {
+    padding:1em;
+}
+
+.card-footer {
+    margin-left:5px;
+    margin-right:5px;
+}
+
+.mat-chip.mat-standard-chip.mat-chip-disabled {
+    opacity: 1;
+}
+
+.title-flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-title-icons {
+    padding:10px;
+    background:rgba(0,0,0,.06); 
+    margin-top:0px !important;
+}
