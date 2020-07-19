@@ -1,11 +1,20 @@
-.header {
-    background: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px;
-  }
-  
-  .header a {
-    color: #fff;
-    text-decoration: none;
-  }
+.header-spacer {
+  flex: 1 1 auto;
+}
+
+.tags-additional-selection {
+  opacity: 0.75;
+  font-size: 0.75em;
+}
+
+.header-tags-form {
+  padding-right: 25px;
+}
+
+.header-top-toolbar {
+  background-color: #f1f1f1;
+}
+
+.header-bottom-toolbar {
+  height: 80px;
+}
