@@ -1,51 +1,18 @@
-<p>
-    <mat-toolbar class="header-top-toolbar">
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-        <mat-icon>menu</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-            <mat-icon>dialpad</mat-icon>
-            <span>Menu Item 1</span>
-        </button>
-        <button mat-menu-item disabled>
-            <mat-icon>voicemail</mat-icon>
-            <span>Menu Item 2</span>
-        </button>
-        <button mat-menu-item>
-            <mat-icon>notifications_off</mat-icon>
-            <span>Menu Item 3</span>
-        </button>
-        </mat-menu>
-    <span>Opus</span>
+<mat-toolbar class="header-top-toolbar">
+    <span>Vitae Opus</span>
     <span class="header-spacer"></span>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-        <mat-icon>settings</mat-icon>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>menu</mat-icon>
     </button>
-    </mat-toolbar>
-    <mat-divider></mat-divider>
-    <mat-toolbar class="header-bottom-toolbar">
-        <mat-form-field appearance="standard" class="header-tags-form">
-            <mat-label>Tags</mat-label>
-            <mat-select [formControl]="tags" multiple>
-                <mat-select-trigger>
-                {{tags.value ? tags.value[0] : ''}}
-                <span *ngIf="tags.value?.length > 1" class="tags-additional-selection">
-                    (+{{tags.value.length - 1}} {{tags.value?.length === 2 ? 'other' : 'others'}})
-                </span>
-                </mat-select-trigger>
-                <mat-option *ngFor="let tags of tagsList" [value]="tags">{{tags}}</mat-option>
-            </mat-select>
-        </mat-form-field>
-        <div class="example-container">
-            <mat-form-field appearance="standard">
-              <mat-label>Search</mat-label>
-              <input matInput>
-              <mat-icon matSuffix>search</mat-icon>
-            </mat-form-field>
-          </div>
-        <span class="header-spacer"></span>
-        <button mat-raised-button>Add Project</button>
-    </mat-toolbar>
-    <mat-divider></mat-divider>
-</p>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+            <mat-icon>person</mat-icon>
+            <span>Profile</span>
+        </button>
+        <button mat-menu-item>
+            <mat-icon>arrow_back</mat-icon>
+            <span>Sign Out</span>
+        </button>
+    </mat-menu>
+</mat-toolbar>
+<mat-divider></mat-divider>

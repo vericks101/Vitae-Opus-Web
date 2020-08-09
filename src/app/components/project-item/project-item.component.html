@@ -1,28 +1,21 @@
+
 <p>
     <mat-card class="card">
         <div class="title-flex">
-            <mat-card-title class="card-title">
-                Example Project
-            </mat-card-title>
+            <mat-card-title class="card-title">{{project.title}}</mat-card-title>
             <mat-card-title class="card-title-icons">
-                <button mat-icon-button>
-                    <mat-icon>edit</mat-icon>
-                </button>
+                <app-edit-project [project]="project" (editProject)="receiveEdit($event)"></app-edit-project>
+                <app-remove-project (removeProject)="receiveRemoval()"></app-remove-project>
             </mat-card-title>
         </div>
         <mat-card-content class="card-content">
-        <p>
-            This is an example project card. Each project component will be used for an individual project. Below are 
-            tags associated with each project for filtering purposes. Each card will display the project title and 
-            description.
-        </p>
+        <p>{{project.description}}</p>
         </mat-card-content>
         <mat-card-footer class="card-footer">
             <mat-chip-list disabled>
-                <mat-chip>JavaScript</mat-chip>
-                <mat-chip>Python</mat-chip>
-                <mat-chip>C++</mat-chip>
-                <mat-chip>C#</mat-chip>
+                <ng-container *ngFor="let tag of project.tags">
+                        <mat-chip>{{tag.title}}</mat-chip>
+                </ng-container>
             </mat-chip-list>
         </mat-card-footer>
     </mat-card>

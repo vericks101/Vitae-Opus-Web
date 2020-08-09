@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Add Tag</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Tag Title</mat-label>
+    <input matInput cdkFocusInitial [formControl]="titleFC" required [(ngModel)]="data.title">
+    <mat-error *ngIf="titleFC.invalid">{{getTitleErrorMessage()}}</mat-error>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button onclick="this.blur()" *ngIf="!titleFC.invalid" [mat-dialog-close]="data" cdkFocusInitial>Add</button>
+    <button mat-raised-button onclick="this.blur()" (click)="onCloseClick()">Close</button>
+</div>

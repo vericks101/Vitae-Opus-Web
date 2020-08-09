@@ -1,17 +1,44 @@
+<mat-toolbar class="header-bottom-toolbar">
+    <mat-form-field appearance="legacy" class="header-tags-form">
+        <mat-label>Tags</mat-label>
+        <mat-select [(value)]="selectedTags" multiple (selectionChange)="onSelectedTagsOrSearchChange()">
+            <mat-select-trigger>
+                {{selectedTags ? selectedTags[0] : ''}}
+                <span *ngIf="selectedTags?.length > 1" class="tags-additional-selection">
+                    (+{{selectedTags.length - 1}} {{selectedTags.length === 2 ? 'other' : 'others'}})
+                </span>
+            </mat-select-trigger>
+            <mat-option *ngFor="let tag of tagsList" [value]="tag.title">{{tag.title}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <app-add-tag (addTag)="addTag($event)"></app-add-tag>
+    <div class="example-container">
+        <mat-form-field appearance="legacy" class="header-search-form">
+            <mat-label>Search</mat-label>
+            <input matInput placeholder="Search via Keywords" type="text" [(ngModel)]="searchValue" (ngModelChange)="onSelectedTagsOrSearchChange()">
+            <button mat-button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+    </div>
+    <span class="header-spacer"></span>
+    <app-add-project (addProject)="receiveAdd($event)"></app-add-project>
+</mat-toolbar>
+<mat-divider></mat-divider>
 <mat-grid-list [cols]="breakpoint" rowHeight="1.275:1" (window:resize)="onResize($event)">
-    <mat-grid-tile><app-project-item></app-project-item></mat-grid-tile>
-    <mat-grid-tile><app-project-item></app-project-item></mat-grid-tile>
-    <mat-grid-tile><app-project-item></app-project-item></mat-grid-tile>
-    <mat-grid-tile><app-project-item></app-project-item></mat-grid-tile>
-    <mat-grid-tile><app-project-item></app-project-item></mat-grid-tile>
-    <mat-grid-tile><app-project-item></app-project-item></mat-grid-tile>
-    <mat-grid-tile><app-project-item></app-project-item></mat-grid-tile>
-    <mat-grid-tile><app-project-item></app-project-item></mat-grid-tile>
-    <mat-grid-tile><app-project-item></app-project-item></mat-grid-tile>
-    <mat-grid-tile><app-project-item></app-project-item></mat-grid-tile>
-    <mat-grid-tile><app-project-item></app-project-item></mat-grid-tile>
-    <mat-grid-tile><app-project-item></app-project-item></mat-grid-tile>
-    <mat-grid-tile><app-project-item></app-project-item></mat-grid-tile>
-    <mat-grid-tile><app-project-item></app-project-item></mat-grid-tile>
-    <mat-grid-tile><app-project-item></app-project-item></mat-grid-tile>
+    <ng-container *ngIf="!tagsOrSearchPresent; then showProjects; else showFilteredProjects"></ng-container>
+    <ng-template #showProjects>
+        <ng-container *ngFor="let project of projects">
+            <mat-grid-tile>
+                <app-project-item [project]="project" (removeProject)="deleteProject($event)" (editProject)="editProject($event)"></app-project-item>
+            </mat-grid-tile>
+        </ng-container>
+    </ng-template>
+    <ng-template #showFilteredProjects>
+        <ng-container *ngFor="let project of filteredProjects">
+            <mat-grid-tile>
+                <app-project-item [project]="project" (removeProject)="deleteProject($event)" (editProject)="editProject($event)"></app-project-item>
+            </mat-grid-tile>
+        </ng-container>
+</ng-template>
 </mat-grid-list>

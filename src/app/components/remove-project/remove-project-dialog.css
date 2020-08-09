@@ -1,0 +1,11 @@
+.mat-form-field {
+    width: 500px;
+}
+
+.dialog-title {
+    text-align: center;
+}
+
+.dialog-actions {
+    justify-content: center;
+}

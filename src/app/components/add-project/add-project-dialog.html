@@ -1,0 +1,31 @@
+<h1 mat-dialog-title>Add Project</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Project Title</mat-label>
+    <input matInput cdkFocusInitial [formControl]="titleFC" required [(ngModel)]="data.title">
+    <mat-error *ngIf="titleFC.invalid">{{getTitleErrorMessage()}}</mat-error>
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>Project Description</mat-label>
+    <textarea matInput cdkTextareaAutosize [formControl]="descriptionFC" required style="overflow: hidden;" [(ngModel)]="data.description"></textarea>
+    <mat-error *ngIf="descriptionFC.invalid">{{getDescriptionErrorMessage()}}</mat-error>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="legacy" class="header-tags-form">
+    <mat-label>Tags</mat-label>
+    <mat-select [formControl]="tags" multiple [(ngModel)]="data.tags">
+        <mat-select-trigger>
+            {{tags.value ? tags.value[0]?.title : ''}}
+            <span *ngIf="tags.value?.length > 1" class="tags-additional-selection">
+                (+{{tags.value.length - 1}} {{tags.value?.length === 2 ? 'other' : 'others'}})
+            </span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let tags of tagsList" [value]="tags">{{tags.title}}</mat-option>
+    </mat-select>
+   </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button onclick="this.blur()" *ngIf="!titleFC.invalid && !descriptionFC.invalid" [mat-dialog-close]="data" cdkFocusInitial>Add</button>
+    <button mat-raised-button onclick="this.blur()" (click)="onCloseClick()">Close</button>
+</div>

@@ -1,0 +1,36 @@
+.header-spacer {
+    flex: 1 1 auto;
+  }
+  
+  .tags-additional-selection {
+    opacity: 0.75;
+    font-size: 0.75em;
+  }
+  
+  .header-tags-form {
+    /* padding-right: 25px; */
+    padding-top : 10px;
+    width: 250px;
+  }
+  
+  .header-search-form {
+    padding-left: 25px;
+    padding-top : 10px;
+    width: 250px;
+  }
+  
+  .header-top-toolbar {
+    background-color: #f1f1f1;
+  }
+  
+  .header-bottom-toolbar {
+    height: 80px;
+  }
+  
+  .mat-menu-item {
+    color: black;
+  }
+  
+  .mat-menu-item .mat-icon  {
+    color: black;
+  }

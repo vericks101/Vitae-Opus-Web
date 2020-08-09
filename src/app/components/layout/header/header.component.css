@@ -8,7 +8,15 @@
 }
 
 .header-tags-form {
-  padding-right: 25px;
+  /* padding-right: 25px; */
+  padding-top : 10px;
+  width: 250px;
+}
+
+.header-search-form {
+  padding-left: 25px;
+  padding-top : 10px;
+  width: 250px;
 }
 
 .header-top-toolbar {
@@ -17,4 +25,12 @@
 
 .header-bottom-toolbar {
   height: 80px;
+}
+
+.mat-menu-item {
+  color: black;
+}
+
+.mat-menu-item .mat-icon  {
+  color: black;
 }
