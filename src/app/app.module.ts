@@ -4,10 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TodosComponent } from './components/todos/todos.component';
-import { TodoItemComponent } from './components/todo-item/todo-item.component';
 import { HeaderComponent } from './components/layout/header/header.component';
-import { AddTodoComponent } from './components/add-todo/add-todo.component';
 import { AboutComponent } from './components/pages/about/about.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProjectItemComponent } from './components/project-item/project-item.component';
@@ -40,10 +37,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 @NgModule({
   declarations: [
     AppComponent,
-    TodosComponent,
-    TodoItemComponent,
     HeaderComponent,
-    AddTodoComponent,
     AboutComponent,
     ProjectsComponent,
     ProjectItemComponent,
