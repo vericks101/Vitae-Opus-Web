@@ -1,0 +1,101 @@
+<body class="auth-background" [ngSwitch]="authPage">
+    <mat-card class="logo-card">
+        <p class="logo-title">Vitae Opus</p>
+    </mat-card>
+
+    <mat-card class="auth-card" *ngSwitchCase="'login'">
+        <p class="auth-title">Login</p>
+        <mat-card-content>
+            <form class="auth-form">
+                <mat-form-field class="login-full-width">
+                    <mat-label>Username</mat-label>
+                    <span matPrefix><mat-icon matSuffix>person</mat-icon>&nbsp;</span>
+                    <input matInput [formControl]="usernameFC" required [(ngModel)]="loginUsername">
+                    <mat-error *ngIf="usernameFC.invalid">{{getUsernameErrorMessage()}}</mat-error>
+                </mat-form-field>
+            </form>
+            <form class="auth-form">
+                <mat-form-field class="login-full-width">
+                    <mat-label>Password</mat-label>
+                    <span matPrefix><mat-icon matSuffix>lock</mat-icon>&nbsp;</span>
+                    <input matInput [type]="'password'" [formControl]="passwordFC" required [(ngModel)]="loginPassword">
+                    <mat-error *ngIf="passwordFC.invalid">{{getPasswordErrorMessage()}}</mat-error>
+                </mat-form-field>
+            </form>
+            <button class="login-button" mat-raised-button onclick="this.blur()" (click)="onLoginClick()">Login</button>
+            <mat-spinner class="loading-icon" diameter="20" *ngIf="isLoading"></mat-spinner>
+            <p class="response-error" *ngIf="responseErrorMessage">{{responseErrorMessage}}</p>
+            <a mat-button class="sign-up" (click)="onSignUpClick()">Sign Up</a>
+            <br>
+            <a mat-button class="forgot-password" (click)="onForgotClick()">Forgot Username or Password</a>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="auth-card" *ngSwitchCase="'register'">
+        <p class="auth-title">Register</p>
+        <form class="auth-form">
+            <table cellspacing="0"><tr>
+                <td><mat-form-field>
+                    <mat-label>First name</mat-label>
+                    <input matInput [formControl]="firstNameFC" required [(ngModel)]="registerFirstName">
+                    <mat-error *ngIf="firstNameFC.invalid">{{getFirstNameErrorMessage()}}</mat-error>
+                </mat-form-field></td>
+                <td><mat-form-field>
+                    <mat-label>Last Name</mat-label>
+                    <input matInput [formControl]="lastNameFC" required [(ngModel)]="registerLastName">
+                    <mat-error *ngIf="lastNameFC.invalid">{{getLastNameErrorMessage()}}</mat-error>
+                </mat-form-field></td>
+            </tr></table>
+            <table cellspacing="0"><tr>
+                <td><mat-form-field style="width: 371px;">
+                    <mat-label>Email</mat-label>
+                    <input matInput [formControl]="emailFC" required [(ngModel)]="registerEmail">
+                    <mat-error *ngIf="emailFC.invalid">{{getEmailErrorMessage()}}</mat-error>
+                </mat-form-field></td>
+            </tr></table>
+            <table cellspacing="0"><tr>
+                <td><mat-form-field style="width: 371px;">
+                    <mat-label>Username</mat-label>
+                    <input matInput [formControl]="registerUsernameFC" required [(ngModel)]="registerUsername">
+                    <mat-error *ngIf="registerUsernameFC.invalid">{{getRegisterUsernameErrorMessage()}}</mat-error>
+                </mat-form-field></td>
+            </tr></table>
+            <table cellspacing="0"><tr>
+                <td><mat-form-field>
+                    <mat-label>Password</mat-label>
+                    <input matInput [type]="'password'" [formControl]="registerPasswordFC" required [(ngModel)]="registerPassword">
+                    <mat-error *ngIf="registerPasswordFC.invalid">{{getRegisterPasswordErrorMessage()}}</mat-error>
+                </mat-form-field></td>
+                <td><mat-form-field>
+                    <mat-label>Confirm Password</mat-label>
+                    <input matInput [type]="'password'" [formControl]="confirmPasswordFC" required [(ngModel)]="registerConfirmPassword">
+                    <mat-error *ngIf="confirmPasswordFC.invalid">{{getConfirmPasswordErrorMessage()}}</mat-error>
+                </mat-form-field></td>
+            </tr></table>
+        </form>
+        <button mat-raised-button style="margin-top: 5px; margin-right: 10px;" onclick="this.blur()" (click)="onRegisterClick()">Register</button>
+        <button mat-raised-button style="margin-top: 5px;" onclick="this.blur()" (click)="onBackClick()">Back</button>
+        <mat-spinner class="loading-icon" diameter="20" *ngIf="isLoading"></mat-spinner>
+        <p class="response-error" *ngIf="responseErrorMessage">{{responseErrorMessage}}</p>
+        <p class="response-success" *ngIf="responseSuccessMessage">{{responseSuccessMessage}}</p>
+    </mat-card>
+
+    <mat-card class="auth-card" *ngSwitchCase="'forgot'">
+        <p class="auth-title">Forgot Username or Password</p>
+        <mat-card-content>
+            <form class="auth-form">
+                <mat-form-field class="forgot-full-width">
+                    <mat-label>Email</mat-label>
+                    <span matPrefix><mat-icon matSuffix>email</mat-icon>&nbsp;</span>
+                    <input matInput [formControl]="forgotEmailFC" required [(ngModel)]="forgotEmail">
+                    <mat-error *ngIf="forgotEmailFC.invalid">{{getForgotEmailErrorMessage()}}</mat-error>
+                </mat-form-field>
+            </form>
+            <button mat-raised-button style="margin-top: 5px; margin-right: 10px;" onclick="this.blur()" (click)="onSendResetClick()">Send</button>
+            <button mat-raised-button style="margin-top: 5px;" onclick="this.blur()" (click)="onBackClick()">Back</button>
+            <mat-spinner class="loading-icon" diameter="20" *ngIf="isLoading"></mat-spinner>
+            <p class="response-error" *ngIf="responseErrorMessage">{{responseErrorMessage}}</p>
+            <p class="response-success" *ngIf="responseSuccessMessage">{{responseSuccessMessage}}</p>
+        </mat-card-content>
+    </mat-card>
+</body>
