@@ -1,0 +1,33 @@
+<body class="reset-background" [ngSwitch]="pageState">
+    <mat-card class="logo-card">
+        <p class="logo-title">Vitae Opus</p>
+    </mat-card>
+
+    <mat-card class="reset-card" *ngSwitchCase="'loading'">
+        <mat-spinner style="margin: 0 auto;"></mat-spinner>
+    </mat-card>
+
+    <mat-card class="reset-card" *ngSwitchCase="'success'">
+        <p class="auth-title">Reset Password</p>
+        <mat-card-content>
+            <form>
+                <mat-form-field class="login-full-width">
+                    <mat-label>New Password</mat-label>
+                    <span matPrefix><mat-icon matSuffix>lock</mat-icon>&nbsp;</span>
+                    <input matInput [type]="'password'" [formControl]="passwordFC" required [(ngModel)]="newPassword">
+                    <mat-error *ngIf="passwordFC.invalid">{{getPasswordErrorMessage()}}</mat-error>
+                </mat-form-field>
+            </form>
+            <button style="margin-top: 15px; margin-right: 10px;" mat-raised-button onclick="this.blur()" (click)="onSubmitClick()">Submit</button>
+            <button mat-raised-button onclick="this.blur()" (click)="onReturnToLogin()">Return to Login</button>
+            <mat-spinner class="loading-icon" diameter="20" *ngIf="isLoading"></mat-spinner>
+            <p class="response-error" *ngIf="responseErrorMessage">{{responseErrorMessage}}</p>
+            <p class="response-success" *ngIf="responseSuccessMessage">{{responseSuccessMessage}}</p>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="reset-card" *ngSwitchCase="'failure'">
+        <p class="reset-text">Their was a problem loading the page or your reset link has expired.</p>
+        <button class="return-button" mat-raised-button onclick="this.blur()" (click)="onReturnToLogin()">Return to Login</button>
+    </mat-card>
+</body>

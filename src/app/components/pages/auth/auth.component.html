@@ -37,11 +37,13 @@
             <table cellspacing="0"><tr>
                 <td><mat-form-field>
                     <mat-label>First name</mat-label>
+                    <span matPrefix><mat-icon matSuffix>person</mat-icon>&nbsp;</span>
                     <input matInput [formControl]="firstNameFC" required [(ngModel)]="registerFirstName">
                     <mat-error *ngIf="firstNameFC.invalid">{{getFirstNameErrorMessage()}}</mat-error>
                 </mat-form-field></td>
                 <td><mat-form-field>
                     <mat-label>Last Name</mat-label>
+                    <span matPrefix><mat-icon matSuffix>person</mat-icon>&nbsp;</span>
                     <input matInput [formControl]="lastNameFC" required [(ngModel)]="registerLastName">
                     <mat-error *ngIf="lastNameFC.invalid">{{getLastNameErrorMessage()}}</mat-error>
                 </mat-form-field></td>
@@ -49,6 +51,7 @@
             <table cellspacing="0"><tr>
                 <td><mat-form-field style="width: 371px;">
                     <mat-label>Email</mat-label>
+                    <span matPrefix><mat-icon matSuffix>email</mat-icon>&nbsp;</span>
                     <input matInput [formControl]="emailFC" required [(ngModel)]="registerEmail">
                     <mat-error *ngIf="emailFC.invalid">{{getEmailErrorMessage()}}</mat-error>
                 </mat-form-field></td>
@@ -56,6 +59,7 @@
             <table cellspacing="0"><tr>
                 <td><mat-form-field style="width: 371px;">
                     <mat-label>Username</mat-label>
+                    <span matPrefix><mat-icon matSuffix>person</mat-icon>&nbsp;</span>
                     <input matInput [formControl]="registerUsernameFC" required [(ngModel)]="registerUsername">
                     <mat-error *ngIf="registerUsernameFC.invalid">{{getRegisterUsernameErrorMessage()}}</mat-error>
                 </mat-form-field></td>
@@ -63,18 +67,20 @@
             <table cellspacing="0"><tr>
                 <td><mat-form-field>
                     <mat-label>Password</mat-label>
+                    <span matPrefix><mat-icon matSuffix>lock</mat-icon>&nbsp;</span>
                     <input matInput [type]="'password'" [formControl]="registerPasswordFC" required [(ngModel)]="registerPassword">
                     <mat-error *ngIf="registerPasswordFC.invalid">{{getRegisterPasswordErrorMessage()}}</mat-error>
                 </mat-form-field></td>
                 <td><mat-form-field>
                     <mat-label>Confirm Password</mat-label>
+                    <span matPrefix><mat-icon matSuffix>lock</mat-icon>&nbsp;</span>
                     <input matInput [type]="'password'" [formControl]="confirmPasswordFC" required [(ngModel)]="registerConfirmPassword">
                     <mat-error *ngIf="confirmPasswordFC.invalid">{{getConfirmPasswordErrorMessage()}}</mat-error>
                 </mat-form-field></td>
             </tr></table>
         </form>
-        <button mat-raised-button style="margin-top: 5px; margin-right: 10px;" onclick="this.blur()" (click)="onRegisterClick()">Register</button>
-        <button mat-raised-button style="margin-top: 5px;" onclick="this.blur()" (click)="onBackClick()">Back</button>
+        <button mat-raised-button style="margin-top: 15px; margin-right: 10px;" onclick="this.blur()" (click)="onRegisterClick()">Register</button>
+        <button mat-raised-button style="margin-top: 15px;" onclick="this.blur()" (click)="onBackClick()">Back</button>
         <mat-spinner class="loading-icon" diameter="20" *ngIf="isLoading"></mat-spinner>
         <p class="response-error" *ngIf="responseErrorMessage">{{responseErrorMessage}}</p>
         <p class="response-success" *ngIf="responseSuccessMessage">{{responseSuccessMessage}}</p>

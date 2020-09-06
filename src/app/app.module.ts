@@ -34,6 +34,8 @@ import { RemoveProjectDialog } from './components/remove-project/remove-project.
 import { ProjectsPageComponent } from './components/pages/projects/projects.component';
 import { ProjectsComponent } from './components/projects/projects.component';
 import { AuthPageComponent } from './components/pages/auth/auth.component';
+import { VerifyEmailComponent } from './components/pages/verify-email/verify-email.component';
+import { ResetComponent } from './components/pages/reset/reset.component';
 
 
 @NgModule({
@@ -51,7 +53,9 @@ import { AuthPageComponent } from './components/pages/auth/auth.component';
     RemoveProjectComponent,
     RemoveProjectDialog,
     ProjectsPageComponent,
-    AuthPageComponent
+    AuthPageComponent,
+    VerifyEmailComponent,
+    ResetComponent
   ],
   imports: [
     BrowserModule,
