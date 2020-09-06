@@ -26,7 +26,7 @@
     <app-add-project (addProject)="receiveAdd($event)"></app-add-project>
 </mat-toolbar>
 <mat-divider></mat-divider>
-<mat-grid-list [cols]="breakpoint" rowHeight="1.275:1" (window:resize)="onResize($event)">
+<mat-grid-list [cols]="breakpoint" rowHeight="1.0:1" (window:resize)="onResize($event)">
     <ng-container *ngIf="!tagsOrSearchPresent; then showProjects; else showFilteredProjects"></ng-container>
     <ng-template #showProjects>
         <ng-container *ngFor="let project of projects">

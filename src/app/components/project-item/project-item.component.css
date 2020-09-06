@@ -2,7 +2,9 @@
     margin:2em;
     padding-top:0;
     padding-left:0;
-    padding-right:0
+    padding-right:0;
+    width:350px;
+    height: 350px;
 }
 
 .card-title {

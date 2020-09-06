@@ -3,6 +3,7 @@ import { ProjectService } from '../../services/project.service';
 import { Project } from '../../models/Project';
 import { Tag } from '../../models/Tag';
 import { TagService } from 'src/app/services/tag.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-projects',
@@ -20,7 +21,11 @@ export class ProjectsComponent implements OnInit {
   filteredProjects:Project[];
   tagsList:Tag[];
   
-  constructor(private projectService:ProjectService, private tagsService: TagService) { }
+  constructor(
+    private projectService:ProjectService, 
+    private tagsService: TagService,
+    private authService: AuthService
+    ) { }
 
   ngOnInit() {
     this.breakpoint = (window.innerWidth <= 1600) ? 1 : 5;
@@ -29,7 +34,11 @@ export class ProjectsComponent implements OnInit {
     // });
     this.projects = [
       {id: 1, title: 'foo 1', description: 'foo bar 1', tags: [{userId: 1, id: 1, title: 'delectus aut autem', completed: false}]},
-      {id: 2, title: 'foo 2', description: 'foo bar 2', tags: [{userId: 1, id: 2, title: 'quis ut nam facilis et officia qui', completed:false}]}
+      {id: 2, title: 'foo 2', description: 'foo bar 2', tags: [{userId: 1, id: 2, title: 'quis ut nam facilis et officia qui', completed:false}]},
+      {id: 3, title: 'foo 3', description: 'foo bar 2', tags: [{userId: 1, id: 2, title: 'quis ut nam facilis et officia qui', completed:false}]},
+      {id: 4, title: 'foo 4', description: 'foo bar 2', tags: [{userId: 1, id: 2, title: 'quis ut nam facilis et officia qui', completed:false}]},
+      {id: 5, title: 'foo 5', description: 'foo bar 2', tags: [{userId: 1, id: 2, title: 'quis ut nam facilis et officia qui', completed:false}]},
+      {id: 6, title: 'foo 6', description: 'foo bar 2', tags: [{userId: 1, id: 2, title: 'quis ut nam facilis et officia qui', completed:false}]}
     ]
     this.tagsService.currentTags.subscribe(tagsList => this.tagsList = tagsList);
   }

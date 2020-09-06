@@ -47,6 +47,14 @@ export class ResetComponent implements OnInit {
     });
   }
 
+  enableLoadingIcon() {
+    this.isLoading = true;
+  }
+
+  disableLoadingIcon() {
+    this.isLoading = false;
+  }
+
   onReturnToLogin() {
     this.router.navigate(['']);
   }
@@ -54,14 +62,14 @@ export class ResetComponent implements OnInit {
   onSubmitClick() {
     if (this.passwordFC.valid) {
       this.clearResponseMessages();
-      this.isLoading = true;
+      this.enableLoadingIcon();
       let resetPassword = new ResetPassword(undefined, this.username, this.newPassword);
       this.resetService.resetPassword(resetPassword).subscribe(res => {
-        this.isLoading = false;
+        this.disableLoadingIcon();
         this.responseSuccessMessage = RESPONSE_SUCCESS;
       },
       (err) => {
-        this.isLoading = false;
+        this.disableLoadingIcon();
         this.responseSuccessMessage = RESPONSE_FAILURE;
       });
     }

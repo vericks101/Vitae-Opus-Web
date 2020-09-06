@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { RegisterUser } from '../../../models/RegisterUser';
@@ -19,39 +20,50 @@ const ALPHANUMERIC_REGEX:string = '^[a-zA-Z0-9]*$';
 export class AuthPageComponent implements OnInit {
   usernameFC = new FormControl('', [
     Validators.required,
-    Validators.pattern(ALPHANUMERIC_REGEX)
+    Validators.pattern(ALPHANUMERIC_REGEX),
+    Validators.maxLength(16)
   ]);
   passwordFC = new FormControl('', [
     Validators.required,
-    Validators.pattern(ALPHANUMERIC_REGEX)
+    Validators.pattern(ALPHANUMERIC_REGEX),
+    Validators.maxLength(50)
   ]);
 
   firstNameFC = new FormControl('', [
-    Validators.required
+    Validators.required,
+    Validators.pattern(ALPHANUMERIC_REGEX),
+    Validators.maxLength(16)
   ]);
   lastNameFC = new FormControl('', [
-    Validators.required
+    Validators.required,
+    Validators.pattern(ALPHANUMERIC_REGEX),
+    Validators.maxLength(16)
   ]);
   emailFC = new FormControl('', [
     Validators.required,
-    Validators.email
+    Validators.email,
+    Validators.maxLength(50)
   ]);
   registerUsernameFC = new FormControl('', [
     Validators.required,
-    Validators.pattern(ALPHANUMERIC_REGEX)
+    Validators.pattern(ALPHANUMERIC_REGEX),
+    Validators.maxLength(16)
   ]);
   registerPasswordFC = new FormControl('', [
     Validators.required,
-    Validators.pattern(ALPHANUMERIC_REGEX)
+    Validators.pattern(ALPHANUMERIC_REGEX),
+    Validators.maxLength(50)
   ]);
   confirmPasswordFC = new FormControl('', [
     Validators.required,
-    Validators.pattern(ALPHANUMERIC_REGEX)
+    Validators.pattern(ALPHANUMERIC_REGEX),
+    Validators.maxLength(50)
   ]);
 
   forgotEmailFC = new FormControl('', [
     Validators.required,
-    Validators.email
+    Validators.email,
+    Validators.maxLength(50)
   ]); 
 
   authPage:string = 'login';
@@ -73,7 +85,10 @@ export class AuthPageComponent implements OnInit {
 
   isLoading:boolean = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router
+    ) { }
 
   ngOnInit(): void { }
 
@@ -107,6 +122,7 @@ export class AuthPageComponent implements OnInit {
       let loginUser = new LoginUser(this.loginUsername, this.loginPassword);
       this.authService.loginUser(loginUser).subscribe(res => {
         this.disableLoadingIcon();
+        this.router.navigate(['projects']);
       },
       (err) => {
         this.disableLoadingIcon();
@@ -190,6 +206,8 @@ export class AuthPageComponent implements OnInit {
       return 'You must provide a username.';
     } else if (this.usernameFC.hasError('pattern')) {
       return 'You must provide only alphanumeric characters.';
+    } else if (this.usernameFC.hasError('maxlength')) {
+      return 'Your username can be at most 16 characters long.';
     } else {
       return '';
     }
@@ -200,17 +218,35 @@ export class AuthPageComponent implements OnInit {
       return 'You must provide a password.';
     } else if (this.passwordFC.hasError('pattern')) {
       return 'You must provide only alphanumeric characters.';
+    } else if (this.passwordFC.hasError('maxlength')) {
+      return 'Your password can be at most 50 characters long.';
     } else {
       return '';
     }
   }
 
   getFirstNameErrorMessage() {
-    return this.firstNameFC.hasError('required') ? 'You must provide a first name.' : '';
+    if (this.firstNameFC.hasError('required')) {
+      return 'You must provide a first name.';
+    } else if (this.firstNameFC.hasError('pattern')) {
+      return 'You must provide only alphanumeric characters.';
+    } else if (this.firstNameFC.hasError('maxlength')) {
+      return 'Your first name can be at most 16 characters long.';
+    } else {
+      return '';
+    }
   }
 
   getLastNameErrorMessage() {
-    return this.lastNameFC.hasError('required') ? 'You must provide a last name.' : '';
+    if (this.lastNameFC.hasError('required')) {
+      return 'You must provide a last name.';
+    } else if (this.lastNameFC.hasError('pattern')) {
+      return 'You must provide only alphanumeric characters.';
+    } else if (this.lastNameFC.hasError('maxlength')) {
+      return 'Your last name can be at most 16 characters long.';
+    } else {
+      return '';
+    }
   }
 
   getEmailErrorMessage() {
@@ -218,6 +254,8 @@ export class AuthPageComponent implements OnInit {
       return 'You must provide an email.';
     } else if (this.emailFC.hasError('email')) {
       return 'You must provide a valid email.';
+    } else if (this.emailFC.hasError('maxlength')) {
+      return 'Your email can be at most 50 characters long.';
     } else {
       return '';
     }
@@ -226,8 +264,10 @@ export class AuthPageComponent implements OnInit {
   getRegisterUsernameErrorMessage() {
     if (this.registerUsernameFC.hasError('required')) {
       return 'You must provide a username.';
-    } else if (this.passwordFC.hasError('pattern')) {
+    } else if (this.registerUsernameFC.hasError('pattern')) {
       return 'You must provide only alphanumeric characters.';
+    } else if (this.registerUsernameFC.hasError('maxlength')) {
+      return 'Your username can be at most 16 characters long.';
     } else {
       return '';
     }
@@ -238,6 +278,8 @@ export class AuthPageComponent implements OnInit {
       return 'You must provide a password.';
     } else if (this.registerPasswordFC.hasError('pattern')) {
       return 'You must provide only alphanumeric characters.';
+    } else if (this.registerPasswordFC.hasError('maxlength')) {
+      return 'Your password can be at most 50 characters long.';
     } else {
       return '';
     }
@@ -248,6 +290,8 @@ export class AuthPageComponent implements OnInit {
       return 'You must provide a confirm password.';
     } else if (this.confirmPasswordFC.hasError('pattern')) {
       return 'You must provide only alphanumeric characters.';
+    } else if (this.confirmPasswordFC.hasError('maxlength')) {
+      return 'Your confirm password can be at most 50 characters long.';
     } else {
       return '';
     }
@@ -258,6 +302,8 @@ export class AuthPageComponent implements OnInit {
       return 'You must provide an email.';
     } else if (this.forgotEmailFC.hasError('email')) {
       return 'You must provide a valid email.';
+    } else if (this.forgotEmailFC.hasError('maxlength')) {
+      return 'Your email can be at most 50 characters long.';
     } else {
       return '';
     }
