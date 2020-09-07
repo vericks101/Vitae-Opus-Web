@@ -12,9 +12,20 @@ export class HeaderComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    if (localStorage.getItem('loggedInUsername') === null) {
+      console.log('no logged in user');
+    } else {
+      console.log(localStorage.getItem('loggedInUsername'));
+    }
+  }
 
   onSignOutClick() {
+    this.clearLoggedInUsername();
     this.router.navigate(['']);
+  }
+
+  clearLoggedInUsername() {
+    localStorage.removeItem('loggedInUsername');
   }
 }

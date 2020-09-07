@@ -38,13 +38,19 @@ export class AddTagComponent {
   }
 }
 
+const FREEFORMTEXT_REGEX:string = '^[a-zA-Z0-9,./\'!%&;: ]*$';
+
 @Component({
   selector: 'add-tag-dialog',
   templateUrl: 'add-tag-dialog.html',
   styleUrls: ['./add-tag-dialog.css']
 })
 export class AddTagDialog {
-  titleFC = new FormControl('', [Validators.required]);
+  titleFC = new FormControl('', [
+    Validators.required,
+    Validators.pattern(FREEFORMTEXT_REGEX),
+    Validators.maxLength(16)
+  ]);
 
   constructor(
     public dialogRef: MatDialogRef<AddTagDialog>,
@@ -56,6 +62,14 @@ export class AddTagDialog {
   }
 
   getTitleErrorMessage() {
-    return this.titleFC.hasError('required') ? 'You must provide a tag title.' : '';
+    if (this.titleFC.hasError('required')) {
+      return 'You must provide a tag title.';
+    } else if (this.titleFC.hasError('pattern')) {
+      return 'You must provide only alphanumeric or typcial free form characters.';
+    } else if (this.titleFC.hasError('maxlength')) {
+      return 'Your username can be at most 16 characters long.';
+    } else {
+      return '';
+    }
   }
 }

@@ -45,14 +45,24 @@ export class EditProjectComponent {
   }
 }
 
+const FREEFORMTEXT_REGEX:string = '^[a-zA-Z0-9,./\'!%&;: ]*$';
+
 @Component({
   selector: 'edit-project-dialog',
   templateUrl: 'edit-project-dialog.html',
   styleUrls: ['./edit-project-dialog.css']
 })
 export class EditProjectDialog implements OnInit {
-  titleFC = new FormControl('', [Validators.required]);
-  descriptionFC = new FormControl('', [Validators.required]);
+  titleFC = new FormControl('', [
+    Validators.required,
+    Validators.pattern(FREEFORMTEXT_REGEX),
+    Validators.maxLength(16)
+  ]);
+  descriptionFC = new FormControl('', [
+    Validators.required,
+    Validators.pattern(FREEFORMTEXT_REGEX),
+    Validators.maxLength(270)
+  ]);
 
   selectedTags = [];
   //tags = new FormControl();
@@ -83,10 +93,26 @@ export class EditProjectDialog implements OnInit {
   }
 
   getTitleErrorMessage() {
-    return this.titleFC.hasError('required') ? 'You must provide a project title.' : '';
+    if (this.titleFC.hasError('required')) {
+      return 'You must provide a title.';
+    } else if (this.titleFC.hasError('pattern')) {
+      return 'You must provide only alphanumeric or typcial free form characters.';
+    } else if (this.titleFC.hasError('maxlength')) {
+      return 'Your username can be at most 16 characters long.';
+    } else {
+      return '';
+    }
   }
 
   getDescriptionErrorMessage() {
-    return this.titleFC.hasError('required') ? 'You must provide a project description.' : '';
+    if (this.descriptionFC.hasError('required')) {
+      return 'You must provide a description.';
+    } else if (this.descriptionFC.hasError('pattern')) {
+      return 'You must provide only alphanumeric or typcial free form characters.';
+    } else if (this.descriptionFC.hasError('maxlength')) {
+      return 'Your username can be at most 270 characters long.';
+    } else {
+      return '';
+    }
   }
 }

@@ -115,6 +115,13 @@ export class AuthPageComponent implements OnInit {
     this.isLoading = false;
   }
 
+  setLoggedInUsername(username:string) {
+    localStorage.setItem(
+      'loggedInUsername',
+      username
+    );
+  }
+
   onLoginClick() {
     this.clearResponseMessages();
     if (this.usernameFC.valid && this.passwordFC.valid) {
@@ -122,6 +129,7 @@ export class AuthPageComponent implements OnInit {
       let loginUser = new LoginUser(this.loginUsername, this.loginPassword);
       this.authService.loginUser(loginUser).subscribe(res => {
         this.disableLoadingIcon();
+        this.setLoggedInUsername(res.username);
         this.router.navigate(['projects']);
       },
       (err) => {
