@@ -65,7 +65,7 @@ export class AddTagDialog {
     if (this.titleFC.hasError('required')) {
       return 'You must provide a tag title.';
     } else if (this.titleFC.hasError('pattern')) {
-      return 'You must provide only alphanumeric or typcial free form characters.';
+      return 'You must provide only alphanumeric or punctuation characters.';
     } else if (this.titleFC.hasError('maxlength')) {
       return 'Your username can be at most 16 characters long.';
     } else {

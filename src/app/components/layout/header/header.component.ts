@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     if (localStorage.getItem('loggedInUsername') === null) {
-      console.log('no logged in user');
+        this.router.navigate(['']);
     } else {
       console.log(localStorage.getItem('loggedInUsername'));
     }

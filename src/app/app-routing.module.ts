@@ -10,7 +10,8 @@ const routes: Routes = [
   { path:'', component: AuthPageComponent },
   { path:'projects', component: ProjectsPageComponent },
   { path: 'verify/:token', component: VerifyEmailComponent },
-  { path: 'reset/:token', component: ResetComponent }
+  { path: 'reset/:token', component: ResetComponent },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

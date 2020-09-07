@@ -24,8 +24,9 @@
         <mat-option *ngFor="let tags of tagsList" [value]="tags">{{tags.title}}</mat-option>
     </mat-select>
    </mat-form-field>
+   <mat-error style="font-size: 75%;" *ngIf="tags.value?.length > 6">{{getTagsErrorMessage()}}</mat-error>
 </div>
 <div mat-dialog-actions>
-    <button mat-raised-button onclick="this.blur()" *ngIf="!titleFC.invalid && !descriptionFC.invalid" [mat-dialog-close]="data" cdkFocusInitial>Add</button>
+    <button mat-raised-button onclick="this.blur()" *ngIf="!titleFC.invalid && !descriptionFC.invalid && tags.value?.length <= 6" [mat-dialog-close]="data" cdkFocusInitial>Add</button>
     <button mat-raised-button onclick="this.blur()" (click)="onCloseClick()">Close</button>
 </div>

@@ -30,7 +30,7 @@ export class AddProjectComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result != undefined) {
+      if (result != undefined && result.tags.length <= 6) {
         this.title = result.title;
         this.description = result.description;
         this.tags = result.tags;
@@ -48,6 +48,7 @@ export class AddProjectComponent {
 }
 
 const FREEFORMTEXT_REGEX:string = '^[a-zA-Z0-9,./\'!%&;: ]*$';
+const TAGS_ERROR_MSG:string = 'You can only have up to 6 tags.';
 
 @Component({
   selector: 'add-project-dialog',
@@ -88,7 +89,7 @@ export class AddProjectDialog implements OnInit {
     if (this.titleFC.hasError('required')) {
       return 'You must provide a title.';
     } else if (this.titleFC.hasError('pattern')) {
-      return 'You must provide only alphanumeric or typcial free form characters.';
+      return 'You must provide only alphanumeric or punctuation characters.';
     } else if (this.titleFC.hasError('maxlength')) {
       return 'Your username can be at most 16 characters long.';
     } else {
@@ -100,11 +101,15 @@ export class AddProjectDialog implements OnInit {
     if (this.descriptionFC.hasError('required')) {
       return 'You must provide a description.';
     } else if (this.descriptionFC.hasError('pattern')) {
-      return 'You must provide only alphanumeric or typcial free form characters.';
+      return 'You must provide only alphanumeric or punctuation characters.';
     } else if (this.descriptionFC.hasError('maxlength')) {
       return 'Your username can be at most 270 characters long.';
     } else {
       return '';
     }
+  }
+
+  getTagsErrorMessage() {
+    return TAGS_ERROR_MSG;
   }
 }

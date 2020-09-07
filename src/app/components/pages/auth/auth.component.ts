@@ -90,7 +90,11 @@ export class AuthPageComponent implements OnInit {
     private router: Router
     ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    if (localStorage.getItem('loggedInUsername') !== null) {
+        this.router.navigate(['projects']);
+    }
+  }
 
   onSignUpClick() {
     this.authPage = 'register';

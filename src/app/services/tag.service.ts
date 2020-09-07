@@ -15,7 +15,7 @@ const httpOptions = {
 })
 export class TagService {
   tagsUrl:string = 'https://jsonplaceholder.typicode.com/todos';
-  tagsLimit = '?_limit=5';
+  tagsLimit = '?_limit=7';
 
   private tagsSource = new BehaviorSubject<Tag[]>([]);
   currentTags = this.tagsSource.asObservable();
