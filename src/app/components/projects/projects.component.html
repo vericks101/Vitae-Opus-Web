@@ -9,15 +9,16 @@
                     (+{{selectedTags.length - 1}} {{selectedTags.length === 2 ? 'other' : 'others'}})
                 </span>
             </mat-select-trigger>
-            <mat-option *ngFor="let tag of tagsList" [value]="tag.title">{{tag.title}}</mat-option>
+            <mat-option *ngFor="let tag of tagsList" [value]="tag.name">{{tag.name}}</mat-option>
         </mat-select>
     </mat-form-field>
     <app-add-tag (addTag)="addTag($event)"></app-add-tag>
+    <app-manage-tags></app-manage-tags>
     <div class="example-container">
         <mat-form-field appearance="legacy" class="header-search-form">
             <mat-label>Search</mat-label>
             <input matInput placeholder="Search via Keywords" type="text" [(ngModel)]="searchValue" (ngModelChange)="onSelectedTagsOrSearchChange()">
-            <button mat-button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''">
+            <button mat-button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''; onSelectedTagsOrSearchChange()">
               <mat-icon>close</mat-icon>
             </button>
           </mat-form-field>

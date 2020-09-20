@@ -1,10 +1,12 @@
 import { Component, Inject, EventEmitter, Output } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {FormControl, Validators} from '@angular/forms';
+import { TagService } from 'src/app/services/tag.service';
+import { Tag } from 'src/app/models/Tag';
+import { Router } from '@angular/router';
 
 export interface DialogData {
-  title: string,
-  description: string
+  name: string
 }
 
 @Component({
@@ -13,23 +15,31 @@ export interface DialogData {
   styleUrls: ['./add-tag.component.css']
 })
 export class AddTagComponent {
-  title: string;
+  name: string;
+
+  loggedInUsername: string;
 
   @Output() addTag: EventEmitter<any> = new EventEmitter();
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private router: Router) {
+    if (localStorage.getItem('loggedInUsername') === null) {
+      this.router.navigate(['']);
+    } else {
+      this.loggedInUsername = localStorage.getItem('loggedInUsername');
+    }
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddTagDialog, {
-      data: {id: 0, title: ''}
+      data: {name: ''}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result != undefined) {
-        this.title = result.title;
+        this.name = result.name;
         const tag = {
-          id: 0,
-          title: this.title
+          username: this.loggedInUsername,
+          name: this.name
         }
     
         this.addTag.emit(tag);
@@ -52,13 +62,33 @@ export class AddTagDialog {
     Validators.maxLength(16)
   ]);
 
+  loggedInUsername: string;
+
   constructor(
     public dialogRef: MatDialogRef<AddTagDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private tagService: TagService,
+    private router: Router
+  ) {
+    if (localStorage.getItem('loggedInUsername') === null) {
+      this.router.navigate(['']);
+    } else {
+      this.loggedInUsername = localStorage.getItem('loggedInUsername');
+    }
+  }
   
-  onCloseClick(): void {
-    this.dialogRef.close();
+  onCloseClick(addClose:boolean): void {
+    if (addClose) {
+      let tag:Tag = {username:this.loggedInUsername, name:this.data.name};
+      this.tagService.requestAddTag(tag).subscribe(res => {
+        this.dialogRef.close(this.data)
+      }),
+      (err => {
+        console.log(err);
+      });
+    } else {
+      this.dialogRef.close(undefined);
+    }
   }
 
   getTitleErrorMessage() {

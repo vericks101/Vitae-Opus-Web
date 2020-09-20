@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Project } from '../models/Project';
 import { Observable } from 'rxjs';
+import { LoginUser } from '../models/LoginUser';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -13,31 +14,28 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ProjectService {
-  projectsUrl:string = 'https://jsonplaceholder.typicode.com/todos';
-  projectsLimit = '?_limit=20';
+  projectsUrl:string = 'http://localhost:3001/api/project';
 
   constructor(private http:HttpClient) { }
 
   // Get projects
-  getProjects():Observable<Project[]> {
-    return this.http.get<Project[]>(`${this.projectsUrl}${this.projectsLimit}`);
+  getProjects(user:LoginUser):Observable<Project[]> {
+    return this.http.post<Project[]>(`${this.projectsUrl}/getProjects`, user, httpOptions);
   }
 
-  // Delete project
-  deleteProject(project:Project):Observable<Project> {
-    const url = `${this.projectsUrl}/${project.id}`;
-    return this.http.delete<Project>(url, httpOptions);
+  // Remove project
+  removeProject(project:Project):Observable<Project> {
+    return this.http.post<Project>(`${this.projectsUrl}/removeProject`, project, httpOptions);
   }
 
   // Edit project
   editProject(project:Project):Observable<Project> {
-    const url = `${this.projectsUrl}/${project.id}`;
-    return this.http.put<Project>(url, httpOptions);
+    return this.http.put<Project>(`${this.projectsUrl}/editProject`, project, httpOptions);
   }
 
   // Add project
   addProject(project:Project):Observable<Project> {
-    return this.http.post<Project>(this.projectsUrl, project, httpOptions);
+    return this.http.post<Project>(`${this.projectsUrl}/addProject`, project, httpOptions);
   }
 }
 

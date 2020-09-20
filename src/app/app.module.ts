@@ -17,6 +17,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatListModule } from '@angular/material/list';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -36,6 +37,9 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import { AuthPageComponent } from './components/pages/auth/auth.component';
 import { VerifyEmailComponent } from './components/pages/verify-email/verify-email.component';
 import { ResetComponent } from './components/pages/reset/reset.component';
+import { ManageTagsComponent } from './components/manage-tags/manage-tags.component';
+import { ManageTagsDialog } from './components/manage-tags/manage-tags.component';
+import { RemoveTagDialog } from './components/manage-tags/manage-tags.component';
 
 
 @NgModule({
@@ -55,7 +59,10 @@ import { ResetComponent } from './components/pages/reset/reset.component';
     ProjectsPageComponent,
     AuthPageComponent,
     VerifyEmailComponent,
-    ResetComponent
+    ResetComponent,
+    ManageTagsComponent,
+    ManageTagsDialog,
+    RemoveTagDialog
   ],
   imports: [
     BrowserModule,
@@ -78,7 +85,8 @@ import { ResetComponent } from './components/pages/reset/reset.component';
     MatDialogModule,
     MatFormFieldModule,
     MatTooltipModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

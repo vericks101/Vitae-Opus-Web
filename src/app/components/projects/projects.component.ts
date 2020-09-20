@@ -3,7 +3,7 @@ import { ProjectService } from '../../services/project.service';
 import { Project } from '../../models/Project';
 import { Tag } from '../../models/Tag';
 import { TagService } from 'src/app/services/tag.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-projects',
@@ -20,26 +20,26 @@ export class ProjectsComponent implements OnInit {
   projects:Project[];
   filteredProjects:Project[];
   tagsList:Tag[];
+
+  loggedInUsername:string;
   
   constructor(
     private projectService:ProjectService, 
     private tagsService: TagService,
-    private authService: AuthService
-    ) { }
+    private router: Router
+    ) {
+      if (localStorage.getItem('loggedInUsername') === null) {
+        this.router.navigate(['']);
+      } else {
+        this.loggedInUsername = localStorage.getItem('loggedInUsername');
+      }
+  }
 
   ngOnInit() {
     this.breakpoint = (window.innerWidth <= 1600) ? 1 : 5;
-    // this.projectService.getProjects().subscribe(projects => {
-    //   this.projects = projects;
-    // });
-    this.projects = [
-      {id: 1, title: 'foo 1', description: 'foo bar 1', tags: [{userId: 1, id: 1, title: 'delectus aut autem', completed: false}]},
-      {id: 2, title: 'foo 2', description: 'foo bar 2', tags: [{userId: 1, id: 2, title: 'quis ut nam facilis et officia qui', completed:false}]},
-      {id: 3, title: 'foo 3', description: 'foo bar 2', tags: [{userId: 1, id: 2, title: 'quis ut nam facilis et officia qui', completed:false}]},
-      {id: 4, title: 'foo 4', description: 'foo bar 2', tags: [{userId: 1, id: 2, title: 'quis ut nam facilis et officia qui', completed:false}]},
-      {id: 5, title: 'foo 5', description: 'foo bar 2', tags: [{userId: 1, id: 2, title: 'quis ut nam facilis et officia qui', completed:false}]},
-      {id: 6, title: 'foo 6', description: 'foo bar 2', tags: [{userId: 1, id: 2, title: 'quis ut nam facilis et officia qui', completed:false}]}
-    ]
+    this.projectService.getProjects({username: this.loggedInUsername, password: undefined}).subscribe(projects => {
+      this.projects = projects;
+    });
     this.tagsService.currentTags.subscribe(tagsList => this.tagsList = tagsList);
   }
 
@@ -48,18 +48,20 @@ export class ProjectsComponent implements OnInit {
   }
 
   deleteProject(project:Project) {
-    this.projectService.deleteProject(project).subscribe(() => {
-      this.projects = this.projects.filter(p => p.id !== project.id);
+    this.projectService.removeProject(project).subscribe(() => {
+      this.projects = this.projects.filter(p => p.title !== project.title);
     });
   }
 
   editProject(project:Project) {
+    project.username = this.loggedInUsername;
     this.projectService.editProject(project).subscribe(project => {
-      this.projects[this.projects.findIndex(p => p.id === project.id)] = project;
+      this.projects[this.projects.findIndex(p => p.title === project.oldTitle)] = project;
     });
   }
 
   addProject(project:Project) {
+    project.username = this.loggedInUsername;
     this.projectService.addProject(project).subscribe(() => {
       this.projects.unshift(project);
       this.onSelectedTagsOrSearchChange();
@@ -76,14 +78,13 @@ export class ProjectsComponent implements OnInit {
   }
 
   onSelectedTagsOrSearchChange() {
-    console.log(this.selectedTags);
     // Filter on tags if present.
     var tagFilteredProjects = [];
     if (this.selectedTags && this.selectedTags.length > 0) {
       for (const project of this.projects) {
         var addProject = true;
         for (const tagTitle of this.selectedTags) {
-          if (!project.tags.some(t => t.title === tagTitle)) {
+          if (!project.tags.some(t => t.name === tagTitle)) {
             addProject = false;
           }
         }

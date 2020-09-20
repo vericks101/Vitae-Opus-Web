@@ -1,0 +1,14 @@
+<h1 mat-dialog-title class="dialog-title" cdkFocusInitial>Manage Tags</h1>
+<div mat-dialog-content>
+  <mat-list>
+    <mat-list-item class="list-item" *ngFor="let tag of tagsList">
+      <h3 mat-line> {{ tag.name }} </h3>
+      <button mat-icon-button matTooltip="Remove Tag" onclick="this.blur()" (click)="openDialog(tag.name)" matTooltipPosition="above">
+        <mat-icon class="mat-24">delete</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+</div>
+<div mat-dialog-actions class="dialog-actions">
+  <button mat-raised-button onclick="this.blur()" (click)="onCloseClick()">Close</button>
+</div>

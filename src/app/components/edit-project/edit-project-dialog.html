@@ -2,26 +2,26 @@
 <div mat-dialog-content>
   <mat-form-field>
     <mat-label>Project Title</mat-label>
-    <input matInput cdkFocusInitial [formControl]="titleFC" required [(ngModel)]="data.title">
+    <input matInput cdkFocusInitial [formControl]="titleFC" required [(ngModel)]="data.updatedTitle">
     <mat-error *ngIf="titleFC.invalid">{{getTitleErrorMessage()}}</mat-error>
   </mat-form-field>
   <br>
   <mat-form-field>
     <mat-label>Project Description</mat-label>
-    <textarea matInput cdkTextareaAutosize [formControl]="descriptionFC" required style="overflow: hidden;" [(ngModel)]="data.description"></textarea>
+    <textarea matInput cdkTextareaAutosize [formControl]="descriptionFC" required style="overflow: hidden;" [(ngModel)]="data.updatedDescription"></textarea>
     <mat-error *ngIf="descriptionFC.invalid">{{getDescriptionErrorMessage()}}</mat-error>
   </mat-form-field>
   <br>
   <mat-form-field appearance="legacy" class="header-tags-form">
     <mat-label>Tags</mat-label>
-    <mat-select [(value)]="selectedTags" multiple [(ngModel)]="data.tags">
+    <mat-select [(value)]="selectedTags" multiple [(ngModel)]="data.updatedTags">
         <mat-select-trigger>
             {{selectedTags ? selectedTags[0] : ''}}
             <span *ngIf="selectedTags?.length > 1" class="tags-additional-selection">
                 (+{{selectedTags.length - 1}} {{selectedTags.length === 2 ? 'other' : 'others'}})
             </span>
         </mat-select-trigger>
-        <mat-option *ngFor="let tag of tagsList" [value]="tag.title">{{tag.title}}</mat-option>
+        <mat-option *ngFor="let tag of tagsList" [value]="tag.name">{{tag.name}}</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-error style="font-size: 75%;" *ngIf="selectedTags?.length > 6">{{getTagsErrorMessage()}}</mat-error>

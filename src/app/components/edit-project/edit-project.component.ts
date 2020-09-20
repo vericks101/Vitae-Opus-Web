@@ -6,9 +6,9 @@ import { Tag } from 'src/app/models/Tag';
 import { TagService } from 'src/app/services/tag.service';
 
 export interface DialogData {
-  title: string,
-  description: string,
-  tags: Tag[]
+  updatedTitle: string,
+  updatedDescription: string,
+  updatedTags: Tag[]
 }
 
 @Component({
@@ -24,19 +24,25 @@ export class EditProjectComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(EditProjectDialog, {
-      data: {title: this.project.title, description: this.project.description, tags: this.project.tags}
+      data: {updatedTitle: this.project.title, updatedDescription: this.project.description, updatedTags: this.project.tags}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result != undefined && result.tags.length <= 6) {
-        this.project.title = result.title;
-        this.project.description = result.description;
-        this.project.tags = result.tags;
+      if (result != undefined && result.updatedTags.length <= 6) {
+        this.project.title = this.project.title;
+        this.project.description = this.project.description;
+        this.project.tags = this.project.tags;
+        this.project.updatedTitle = result.updatedTitle;
+        this.project.updatedDescription = result.updatedDescription;
+        this.project.updatedTags = result.updatedTags;
   
         const project = {
           title: this.project.title,
           description: this.project.description,
-          tags: this.project.tags
+          tags: this.project.tags,
+          updatedTitle: this.project.updatedTitle,
+          updatedDescription: this.project.updatedDescription,
+          updatedTags: this.project.updatedTags
         }
     
         this.editProject.emit(project);
@@ -66,7 +72,6 @@ export class EditProjectDialog implements OnInit {
   ]);
 
   selectedTags = [];
-  //tags = new FormControl();
 
   tagsList:Tag[];
 
@@ -78,16 +83,16 @@ export class EditProjectDialog implements OnInit {
 
   ngOnInit() {
     this.tagsService.currentTags.subscribe(tagsList => this.tagsList = tagsList);
-    for (const tag of this.data.tags) {
-      this.selectedTags.push(tag.title);
+    for (const tag of this.data.updatedTags) {
+      this.selectedTags.push(tag.name);
     }
-    this.data.tags = this.selectedTags;
+    this.data.updatedTags = this.selectedTags;
   }
   
   onCloseClick(): void {
-    this.data.tags = [];
+    this.data.updatedTags = [];
     for (const tag of this.selectedTags) {
-      this.data.tags.push(this.tagsList.find(t => t.title === tag));
+      this.data.updatedTags.push(this.tagsList.find(t => t.name === tag));
     }
 
     this.dialogRef.close(this.data);

@@ -1,0 +1,13 @@
+.list-item {
+    width: 200px !important;
+    background-color: #00000005;
+    margin-bottom: 10px;
+}
+
+.dialog-title {
+    text-align: center;
+}
+
+.dialog-actions {
+    justify-content: center;
+}

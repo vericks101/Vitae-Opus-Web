@@ -16,12 +16,12 @@
     <mat-label>Tags</mat-label>
     <mat-select [formControl]="tags" multiple [(ngModel)]="data.tags">
         <mat-select-trigger>
-            {{tags.value ? tags.value[0]?.title : ''}}
+            {{tags.value ? tags.value[0]?.name : ''}}
             <span *ngIf="tags.value?.length > 1" class="tags-additional-selection">
                 (+{{tags.value.length - 1}} {{tags.value?.length === 2 ? 'other' : 'others'}})
             </span>
         </mat-select-trigger>
-        <mat-option *ngFor="let tags of tagsList" [value]="tags">{{tags.title}}</mat-option>
+        <mat-option *ngFor="let tags of tagsList" [value]="tags">{{tags.name}}</mat-option>
     </mat-select>
    </mat-form-field>
    <mat-error style="font-size: 75%;" *ngIf="tags.value?.length > 6">{{getTagsErrorMessage()}}</mat-error>
