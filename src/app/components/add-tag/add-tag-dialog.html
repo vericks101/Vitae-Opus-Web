@@ -5,6 +5,8 @@
     <input matInput cdkFocusInitial [formControl]="titleFC" required [(ngModel)]="data.name">
     <mat-error *ngIf="titleFC.invalid">{{getTitleErrorMessage()}}</mat-error>
   </mat-form-field>
+  <mat-spinner class="loading-icon" diameter="20" *ngIf="isLoading"></mat-spinner>
+  <p class="response-error"> {{ errorMessage }} </p>
 </div>
 <div mat-dialog-actions>
     <button mat-raised-button onclick="this.blur()" *ngIf="!titleFC.invalid" (click)="onCloseClick(true)" cdkFocusInitial>Add</button>

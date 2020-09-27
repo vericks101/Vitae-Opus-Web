@@ -9,6 +9,7 @@ import { ForgotUser } from 'src/app/models/ForgotUser';
 const MISSING_REQUIRED_FIELDS:string = 'There are missing required fields or errors to fix.';
 const REGISTER_SUCCESS:string = 'You\'ve successfully registered. Please verify your email before attempting to login.';
 const FORGOT_SUCCESS:string = 'Please check you\'re email inbox for details.';
+const GENERAL_ERROR_RESPONSE: string = 'There was a problem with the request... Please try again after some time.';
 
 const ALPHANUMERIC_REGEX:string = '^[a-zA-Z0-9]*$';
 
@@ -138,7 +139,11 @@ export class AuthPageComponent implements OnInit {
       },
       (err) => {
         this.disableLoadingIcon();
-        this.responseErrorMessage = err.error.error
+        if (err.error.error === undefined) {
+          this.responseErrorMessage = GENERAL_ERROR_RESPONSE;
+        } else {
+          this.responseErrorMessage = err.error.error;
+        }
       });
     } else {
       this.responseErrorMessage = MISSING_REQUIRED_FIELDS;
@@ -159,7 +164,11 @@ export class AuthPageComponent implements OnInit {
           },
           (err) => {
             this.disableLoadingIcon();
-            this.responseErrorMessage = err.error.error
+            if (err.error.error === undefined) {
+              this.responseErrorMessage = GENERAL_ERROR_RESPONSE;
+            } else {
+              this.responseErrorMessage = err.error.error;
+            }
           });
         }
       } else {
@@ -178,7 +187,11 @@ export class AuthPageComponent implements OnInit {
       },
       (err) => {
         this.disableLoadingIcon();
-        this.responseErrorMessage = err.error.error
+        if (err.error.error === undefined) {
+          this.responseErrorMessage = GENERAL_ERROR_RESPONSE;
+        } else {
+          this.responseErrorMessage = err.error.error;
+        }
       });
     } else {
       this.responseErrorMessage = MISSING_REQUIRED_FIELDS;

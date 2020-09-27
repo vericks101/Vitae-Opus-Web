@@ -9,6 +9,10 @@
     </mat-list-item>
   </mat-list>
 </div>
+<mat-spinner class="loading-icon" diameter="20" *ngIf="isLoading"></mat-spinner>
+<div class="error-message">
+  <p> {{ errorMessage }} </p>
+</div>
 <div mat-dialog-actions class="dialog-actions">
   <button mat-raised-button onclick="this.blur()" (click)="onCloseClick()">Close</button>
 </div>

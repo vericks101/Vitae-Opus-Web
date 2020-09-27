@@ -79,11 +79,11 @@
                 </mat-form-field></td>
             </tr></table>
         </form>
-        <button mat-raised-button style="margin-top: 15px; margin-right: 10px;" onclick="this.blur()" (click)="onRegisterClick()">Register</button>
-        <button mat-raised-button style="margin-top: 15px;" onclick="this.blur()" (click)="onBackClick()">Back</button>
         <mat-spinner class="loading-icon" diameter="20" *ngIf="isLoading"></mat-spinner>
         <p class="response-error" *ngIf="responseErrorMessage">{{responseErrorMessage}}</p>
         <p class="response-success" *ngIf="responseSuccessMessage">{{responseSuccessMessage}}</p>
+        <button mat-raised-button style="margin-top: 15px; margin-right: 10px;" onclick="this.blur()" (click)="onRegisterClick()">Register</button>
+        <button mat-raised-button style="margin-top: 15px;" onclick="this.blur()" (click)="onBackClick()">Back</button>
     </mat-card>
 
     <mat-card class="auth-card" *ngSwitchCase="'forgot'">
@@ -97,11 +97,11 @@
                     <mat-error *ngIf="forgotEmailFC.invalid">{{getForgotEmailErrorMessage()}}</mat-error>
                 </mat-form-field>
             </form>
-            <button mat-raised-button style="margin-top: 5px; margin-right: 10px;" onclick="this.blur()" (click)="onSendResetClick()">Send</button>
-            <button mat-raised-button style="margin-top: 5px;" onclick="this.blur()" (click)="onBackClick()">Back</button>
             <mat-spinner class="loading-icon" diameter="20" *ngIf="isLoading"></mat-spinner>
             <p class="response-error" *ngIf="responseErrorMessage">{{responseErrorMessage}}</p>
             <p class="response-success" *ngIf="responseSuccessMessage">{{responseSuccessMessage}}</p>
+            <button mat-raised-button style="margin-top: 5px; margin-right: 10px;" onclick="this.blur()" (click)="onSendResetClick()">Send</button>
+            <button mat-raised-button style="margin-top: 5px;" onclick="this.blur()" (click)="onBackClick()">Back</button>
         </mat-card-content>
     </mat-card>
 </body>

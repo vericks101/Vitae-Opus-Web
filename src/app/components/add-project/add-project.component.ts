@@ -3,6 +3,11 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import {FormControl, Validators} from '@angular/forms';
 import { Tag } from 'src/app/models/Tag';
 import { TagService } from 'src/app/services/tag.service';
+import { Project } from 'src/app/models/Project';
+import { ProjectService } from 'src/app/services/project.service';
+import { Router } from '@angular/router';
+
+const GENERAL_ADD_ERROR: string = 'There was a problem adding the project... Please try again after some time.';
 
 export interface DialogData {
   title: string,
@@ -22,7 +27,7 @@ export class AddProjectComponent {
 
   @Output() addProject: EventEmitter<any> = new EventEmitter();
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) { }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddProjectDialog, {
@@ -68,21 +73,55 @@ export class AddProjectDialog implements OnInit {
   ]);
 
   tags = new FormControl();
-
   tagsList: Tag[];
+  errorMessage: string;
+  isLoading: boolean = false;
+  loggedInUsername: string;
 
   constructor(
     public dialogRef: MatDialogRef<AddProjectDialog>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private tagsService: TagService
-  ) { }
+    private tagsService: TagService,
+    private projectService: ProjectService,
+    private router: Router
+  ) {
+    if (localStorage.getItem('loggedInUsername') === null) {
+      this.router.navigate(['']);
+    } else {
+      this.loggedInUsername = localStorage.getItem('loggedInUsername');
+    }
+    this.clearErrorMessage();
+  }
 
   ngOnInit() {
     this.tagsService.currentTags.subscribe(tagsList => this.tagsList = tagsList);
   }
   
-  onCloseClick(): void {
-    this.dialogRef.close();
+  onCloseClick(addClose: boolean): void {
+    if (addClose) {
+      this.clearErrorMessage();
+      this.enableLoadingSpinner();
+      let project:Project = {
+        username: this.loggedInUsername, 
+        title: this.data.title, 
+        description: this.data.description, 
+        tags: this.data.tags,
+        updatedTitle: undefined,
+        updatedDescription: undefined,
+        updatedTags: undefined,
+        oldTitle: undefined
+      };
+      this.projectService.addProject(project).subscribe(res => {
+        this.disableLoadingSpinner();
+        this.dialogRef.close(this.data);
+      },
+      err => {
+        this.setErrorMessage();
+        this.disableLoadingSpinner();
+      });
+    } else {
+      this.dialogRef.close(undefined);
+    }
   }
 
   getTitleErrorMessage() {
@@ -111,5 +150,21 @@ export class AddProjectDialog implements OnInit {
 
   getTagsErrorMessage() {
     return TAGS_ERROR_MSG;
+  }
+
+  clearErrorMessage(): void {
+    this.errorMessage = '';
+  }
+
+  setErrorMessage(): void {
+    this.errorMessage = GENERAL_ADD_ERROR;
+  }
+
+  disableLoadingSpinner(): void {
+    this.isLoading = false;
+  }
+
+  enableLoadingSpinner(): void {
+    this.isLoading = true;
   }
 }

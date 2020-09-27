@@ -4,6 +4,7 @@ import {FormControl, Validators} from '@angular/forms';
 import { TagService } from 'src/app/services/tag.service';
 import { Tag } from 'src/app/models/Tag';
 import { Router } from '@angular/router';
+import { flatMap } from 'rxjs/operators';
 
 export interface DialogData {
   name: string
@@ -21,7 +22,9 @@ export class AddTagComponent {
 
   @Output() addTag: EventEmitter<any> = new EventEmitter();
 
-  constructor(public dialog: MatDialog, private router: Router) {
+  constructor(public dialog: MatDialog, 
+    private router: Router
+    ) {
     if (localStorage.getItem('loggedInUsername') === null) {
       this.router.navigate(['']);
     } else {
@@ -49,6 +52,7 @@ export class AddTagComponent {
 }
 
 const FREEFORMTEXT_REGEX:string = '^[a-zA-Z0-9,./\'!%&;: ]*$';
+const GENERAL_ADD_TAG_ERROR: string = 'There was a problem adding the tag... Please try again after some time.';
 
 @Component({
   selector: 'add-tag-dialog',
@@ -63,6 +67,8 @@ export class AddTagDialog {
   ]);
 
   loggedInUsername: string;
+  errorMessage: string;
+  isLoading: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<AddTagDialog>,
@@ -70,6 +76,8 @@ export class AddTagDialog {
     private tagService: TagService,
     private router: Router
   ) {
+    this.clearErrorMessage();
+
     if (localStorage.getItem('loggedInUsername') === null) {
       this.router.navigate(['']);
     } else {
@@ -79,12 +87,16 @@ export class AddTagDialog {
   
   onCloseClick(addClose:boolean): void {
     if (addClose) {
+      this.clearErrorMessage();
+      this.enableLoadingSpinner();
       let tag:Tag = {username:this.loggedInUsername, name:this.data.name};
       this.tagService.requestAddTag(tag).subscribe(res => {
-        this.dialogRef.close(this.data)
-      }),
-      (err => {
-        console.log(err);
+        this.disableLoadingSpinner();
+        this.dialogRef.close(this.data);
+      },
+      err => {
+        this.setErrorMessage();
+        this.disableLoadingSpinner();
       });
     } else {
       this.dialogRef.close(undefined);
@@ -101,5 +113,21 @@ export class AddTagDialog {
     } else {
       return '';
     }
+  }
+
+  clearErrorMessage(): void {
+    this.errorMessage = '';
+  }
+
+  setErrorMessage(): void {
+    this.errorMessage = GENERAL_ADD_TAG_ERROR;
+  }
+
+  disableLoadingSpinner(): void {
+    this.isLoading = false;
+  }
+
+  enableLoadingSpinner(): void {
+    this.isLoading = true;
   }
 }

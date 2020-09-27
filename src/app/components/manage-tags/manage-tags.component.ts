@@ -49,6 +49,9 @@ export class ManageTagsComponent implements OnInit {
   }
 }
 
+const TAG_IN_USE_ERROR: string = 'Can\'t remove a tag being used in a project.';
+const GENERAL_REMOVE_ERROR: string = 'There was a problem with the request... Please try again after some time.';
+
 @Component({
   selector: 'manage-tags-dialog',
   templateUrl: 'manage-tags-dialog.html',
@@ -58,6 +61,8 @@ export class ManageTagsDialog implements OnInit {
   tags = new FormControl();
   tagsList: Tag[];
   loggedInUsername: string;
+  errorMessage: string;
+  isLoading: boolean = false;
 
   constructor(
     public dialog: MatDialog, 
@@ -76,37 +81,60 @@ export class ManageTagsDialog implements OnInit {
 
   ngOnInit() {
     this.tagsService.currentTags.subscribe(tagsList => this.tagsList = tagsList);
+    this.clearErrorMessage();
+    this.disableLoadingSpinner();
   }
 
   openDialog(tagName: string): void {
     const dialogRef = this.dialog.open(RemoveTagDialog, { });
 
     dialogRef.afterClosed().subscribe(confirmClick => {
+      this.enableLoadingSpinner();
+      this.clearErrorMessage();
       if (confirmClick) {
         // Ensure tag isn't currently in use.
         this.checkTagInUse(tagName).subscribe(projects => {
-          let tagFound: boolean = false;
+          let tagInUse: boolean = false;
           projects.forEach(project => {
             project.tags.forEach(tag => {
               if (tag.name === tagName)
-                tagFound = true;
+              tagInUse = true;
             });
           });
 
           // Remove tag if it isn't being used currently.
-          if (!tagFound) {
+          if (!tagInUse) {
+            this.clearErrorMessage();
+            this.disableLoadingSpinner();
             let tag: Tag = { username: this.loggedInUsername, name: tagName };
             this.tagsService.requestDeleteTag(tag).subscribe(() => {
               // Update the current tags list across the application with the provided tag removed.
               this.tagsService.requestGetTags({username: this.loggedInUsername, password: undefined}).subscribe(tags => {
                 this.tagsService.updateTags(tags);
+              },
+              err => {
+                this.setErrorMessage();
+                this.disableLoadingSpinner();
               });
+            },
+            err => {
+              this.setErrorMessage();
+              this.disableLoadingSpinner();
             });
           } else {
-            console.error("Tag is currently in use.");
+            this.setInUseErrorMessage();
+            this.disableLoadingSpinner();
           }
+        },
+        err => {
+          this.setErrorMessage();
+          this.disableLoadingSpinner();
         });
       }
+    },
+    err => {
+      this.setErrorMessage();
+      this.disableLoadingSpinner();
     });
   }
   
@@ -117,6 +145,26 @@ export class ManageTagsDialog implements OnInit {
   checkTagInUse(tagName: string): Observable<Project[]> {
     let user: LoginUser = { username: this.loggedInUsername, password: undefined };
     return this.projectsService.getProjects(user);
+  }
+
+  clearErrorMessage(): void {
+    this.errorMessage = '';
+  }
+
+  setInUseErrorMessage(): void {
+    this.errorMessage = TAG_IN_USE_ERROR;
+  }
+
+  setErrorMessage(): void {
+    this.errorMessage = GENERAL_REMOVE_ERROR;
+  }
+
+  disableLoadingSpinner(): void {
+    this.isLoading = false;
+  }
+
+  enableLoadingSpinner(): void {
+    this.isLoading = true;
   }
 }
 

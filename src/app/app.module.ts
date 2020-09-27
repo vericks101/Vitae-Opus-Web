@@ -18,6 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatListModule } from '@angular/material/list';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -86,7 +87,8 @@ import { RemoveTagDialog } from './components/manage-tags/manage-tags.component'
     MatFormFieldModule,
     MatTooltipModule,
     MatProgressSpinnerModule,
-    MatListModule
+    MatListModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

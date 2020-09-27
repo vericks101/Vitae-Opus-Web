@@ -4,6 +4,7 @@ import {FormControl, Validators} from '@angular/forms';
 import { Project } from 'src/app/models/Project';
 import { Tag } from 'src/app/models/Tag';
 import { TagService } from 'src/app/services/tag.service';
+import { ProjectService } from 'src/app/services/project.service';
 
 export interface DialogData {
   updatedTitle: string,
@@ -53,6 +54,7 @@ export class EditProjectComponent {
 
 const FREEFORMTEXT_REGEX:string = '^[a-zA-Z0-9,./\'!%&;: ]*$';
 const TAGS_ERROR_MSG:string = 'You can only have up to 6 tags.';
+const GENERAL_EDIT_ERROR: string = 'There was a problem with the request... Please try again after some time.';
 
 @Component({
   selector: 'edit-project-dialog',
@@ -72,14 +74,16 @@ export class EditProjectDialog implements OnInit {
   ]);
 
   selectedTags = [];
-
   tagsList:Tag[];
+  errorMessage: string;
+  isLoading: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<EditProjectDialog>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private tagsService: TagService 
-  ) {}
+    private tagsService: TagService,
+    private projectService: ProjectService
+  ) { }
 
   ngOnInit() {
     this.tagsService.currentTags.subscribe(tagsList => this.tagsList = tagsList);
@@ -89,13 +93,36 @@ export class EditProjectDialog implements OnInit {
     this.data.updatedTags = this.selectedTags;
   }
   
-  onCloseClick(): void {
-    this.data.updatedTags = [];
-    for (const tag of this.selectedTags) {
-      this.data.updatedTags.push(this.tagsList.find(t => t.name === tag));
-    }
+  onCloseClick(editClose: boolean): void {
+    if (editClose) {
+      this.clearErrorMessage();
+      this.enableLoadingSpinner();
+      let project:Project = {
+        username: undefined, 
+        title: undefined, 
+        description: undefined, 
+        tags: undefined,
+        updatedTitle: this.data.updatedTitle,
+        updatedDescription: this.data.updatedDescription,
+        updatedTags: this.data.updatedTags,
+        oldTitle: undefined
+      };
+      this.projectService.editProject(project).subscribe(res => {
+        this.data.updatedTags = [];
+        for (const tag of this.selectedTags) {
+          this.data.updatedTags.push(this.tagsList.find(t => t.name === tag));
+        }
 
-    this.dialogRef.close(this.data);
+        this.disableLoadingSpinner();
+        this.dialogRef.close(this.data);
+      },
+      err => {
+        this.setErrorMessage();
+        this.disableLoadingSpinner();
+      });
+    } else {
+      this.dialogRef.close(undefined);
+    }
   }
 
   getTitleErrorMessage() {
@@ -124,5 +151,21 @@ export class EditProjectDialog implements OnInit {
 
   getTagsErrorMessage() {
     return TAGS_ERROR_MSG;
+  }
+
+  clearErrorMessage(): void {
+    this.errorMessage = '';
+  }
+
+  setErrorMessage(): void {
+    this.errorMessage = GENERAL_EDIT_ERROR;
+  }
+
+  disableLoadingSpinner(): void {
+    this.isLoading = false;
+  }
+
+  enableLoadingSpinner(): void {
+    this.isLoading = true;
   }
 }

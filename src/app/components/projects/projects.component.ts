@@ -4,6 +4,9 @@ import { Project } from '../../models/Project';
 import { Tag } from '../../models/Tag';
 import { TagService } from 'src/app/services/tag.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+const GENERAL_REMOVE_ERROR: string = 'There was a problem with the request... Please try again after some time.';
 
 @Component({
   selector: 'app-projects',
@@ -26,7 +29,8 @@ export class ProjectsComponent implements OnInit {
   constructor(
     private projectService:ProjectService, 
     private tagsService: TagService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
     ) {
       if (localStorage.getItem('loggedInUsername') === null) {
         this.router.navigate(['']);
@@ -50,22 +54,25 @@ export class ProjectsComponent implements OnInit {
   deleteProject(project:Project) {
     this.projectService.removeProject(project).subscribe(() => {
       this.projects = this.projects.filter(p => p.title !== project.title);
+    },
+    err => {
+      this.openSnackBar(GENERAL_REMOVE_ERROR, 'Close');
     });
   }
 
   editProject(project:Project) {
     project.username = this.loggedInUsername;
-    this.projectService.editProject(project).subscribe(project => {
-      this.projects[this.projects.findIndex(p => p.title === project.oldTitle)] = project;
-    });
+    this.projects[this.projects.findIndex(p => p.title === project.oldTitle)] = project;
   }
 
   addProject(project:Project) {
     project.username = this.loggedInUsername;
-    this.projectService.addProject(project).subscribe(() => {
-      this.projects.unshift(project);
-      this.onSelectedTagsOrSearchChange();
-    });
+    // this.projectService.addProject(project).subscribe(() => {
+    //   this.projects.unshift(project);
+    //   this.onSelectedTagsOrSearchChange();
+    // });
+    this.projects.unshift(project);
+    this.onSelectedTagsOrSearchChange();
   }
 
   addTag(tag:Tag) {
@@ -75,6 +82,12 @@ export class ProjectsComponent implements OnInit {
 
   receiveAdd($event) {
     this.addProject($event);
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+    });
   }
 
   onSelectedTagsOrSearchChange() {
