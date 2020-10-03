@@ -61,17 +61,11 @@ export class ProjectsComponent implements OnInit {
   }
 
   editProject(project:Project) {
-    project.username = this.loggedInUsername;
     this.projects[this.projects.findIndex(p => p.title === project.oldTitle)] = project;
   }
 
   addProject(project:Project) {
-    project.username = this.loggedInUsername;
-    // this.projectService.addProject(project).subscribe(() => {
-    //   this.projects.unshift(project);
-    //   this.onSelectedTagsOrSearchChange();
-    // });
-    this.projects.unshift(project);
+    this.projects.push(project);
     this.onSelectedTagsOrSearchChange();
   }
 

@@ -35,7 +35,7 @@ export class AddProjectComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result != undefined && result.tags.length <= 6) {
+      if (result != undefined && result.tags.length <= 4) {
         this.title = result.title;
         this.description = result.description;
         this.tags = result.tags;
@@ -64,12 +64,12 @@ export class AddProjectDialog implements OnInit {
   titleFC = new FormControl('', [
     Validators.required,
     Validators.pattern(FREEFORMTEXT_REGEX),
-    Validators.maxLength(16)
+    Validators.maxLength(12)
   ]);
   descriptionFC = new FormControl('', [
     Validators.required,
     Validators.pattern(FREEFORMTEXT_REGEX),
-    Validators.maxLength(270)
+    Validators.maxLength(195)
   ]);
 
   tags = new FormControl();
@@ -130,7 +130,7 @@ export class AddProjectDialog implements OnInit {
     } else if (this.titleFC.hasError('pattern')) {
       return 'You must provide only alphanumeric or punctuation characters.';
     } else if (this.titleFC.hasError('maxlength')) {
-      return 'Your username can be at most 16 characters long.';
+      return 'Your title can be at most 12 characters long.';
     } else {
       return '';
     }
@@ -142,7 +142,7 @@ export class AddProjectDialog implements OnInit {
     } else if (this.descriptionFC.hasError('pattern')) {
       return 'You must provide only alphanumeric or punctuation characters.';
     } else if (this.descriptionFC.hasError('maxlength')) {
-      return 'Your username can be at most 270 characters long.';
+      return 'Your description can be at most 195 characters long.';
     } else {
       return '';
     }

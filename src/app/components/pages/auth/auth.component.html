@@ -1,7 +1,5 @@
 <body class="auth-background" [ngSwitch]="authPage">
-    <mat-card class="logo-card">
-        <p class="logo-title">Vitae Opus</p>
-    </mat-card>
+    <p class="logo-title">Vitae Opus</p>
 
     <mat-card class="auth-card" *ngSwitchCase="'login'">
         <p class="auth-title">Login</p>
@@ -30,18 +28,17 @@
             <a mat-button class="forgot-password" (click)="onForgotClick()">Forgot Username or Password</a>
         </mat-card-content>
     </mat-card>
-
     <mat-card class="auth-card" *ngSwitchCase="'register'">
         <p class="auth-title">Register</p>
         <form class="auth-form">
             <table cellspacing="0"><tr>
-                <td><mat-form-field>
+                <td><mat-form-field style="width:130px;">
                     <mat-label>First name</mat-label>
                     <span matPrefix><mat-icon matSuffix>person</mat-icon>&nbsp;</span>
                     <input matInput [formControl]="firstNameFC" required [(ngModel)]="registerFirstName">
                     <mat-error *ngIf="firstNameFC.invalid">{{getFirstNameErrorMessage()}}</mat-error>
                 </mat-form-field></td>
-                <td><mat-form-field>
+                <td><mat-form-field style="width:150px;">
                     <mat-label>Last Name</mat-label>
                     <span matPrefix><mat-icon matSuffix>person</mat-icon>&nbsp;</span>
                     <input matInput [formControl]="lastNameFC" required [(ngModel)]="registerLastName">
@@ -49,7 +46,7 @@
                 </mat-form-field></td>
             </tr></table>
             <table cellspacing="0"><tr>
-                <td><mat-form-field style="width: 371px;">
+                <td><mat-form-field style="width: 290px;">
                     <mat-label>Email</mat-label>
                     <span matPrefix><mat-icon matSuffix>email</mat-icon>&nbsp;</span>
                     <input matInput [formControl]="emailFC" required [(ngModel)]="registerEmail">
@@ -57,7 +54,7 @@
                 </mat-form-field></td>
             </tr></table>
             <table cellspacing="0"><tr>
-                <td><mat-form-field style="width: 371px;">
+                <td><mat-form-field style="width: 290px;">
                     <mat-label>Username</mat-label>
                     <span matPrefix><mat-icon matSuffix>person</mat-icon>&nbsp;</span>
                     <input matInput [formControl]="registerUsernameFC" required [(ngModel)]="registerUsername">
@@ -65,13 +62,13 @@
                 </mat-form-field></td>
             </tr></table>
             <table cellspacing="0"><tr>
-                <td><mat-form-field>
+                <td><mat-form-field style="width:130px;">
                     <mat-label>Password</mat-label>
                     <span matPrefix><mat-icon matSuffix>lock</mat-icon>&nbsp;</span>
                     <input matInput [type]="'password'" [formControl]="registerPasswordFC" required [(ngModel)]="registerPassword">
                     <mat-error *ngIf="registerPasswordFC.invalid">{{getRegisterPasswordErrorMessage()}}</mat-error>
                 </mat-form-field></td>
-                <td><mat-form-field>
+                <td><mat-form-field style="width:150px;">
                     <mat-label>Confirm Password</mat-label>
                     <span matPrefix><mat-icon matSuffix>lock</mat-icon>&nbsp;</span>
                     <input matInput [type]="'password'" [formControl]="confirmPasswordFC" required [(ngModel)]="registerConfirmPassword">

@@ -1,14 +1,16 @@
 .auth-background {
-    background: url('../../../../assets/Rainbow-Vortex.png') no-repeat;
+    /* background: url('../../../../assets/Rainbow-Vortex.png') no-repeat; */
+    background-color: #efefef;
     height: 100vh;
     background-size: cover;
 }
 
 .auth-card {
     max-width: 600px;
-    float: right;
+    /* float: right;
     top: 25%;
-    right: 5%;
+    right: 5%; */
+    margin: 10% auto;
 }
 
 .login-button {
@@ -26,7 +28,7 @@
 }
 
 .auth-form {
-    min-width: 500px;
+    /* min-width: 500px; */
     width: 100%;
 }
   
@@ -55,10 +57,11 @@
     font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
     letter-spacing: 3px;
     font-size: 32px;
-    font-weight: bold;
+    /* font-weight: bold; */
     text-align: center;
-    color: white;
-    text-shadow: 3px 3px #000000;
+    /* color: white; */
+    /* text-shadow: 3px 3px #000000; */
+    padding-top: 100px;
 }
 
 .logo-card {

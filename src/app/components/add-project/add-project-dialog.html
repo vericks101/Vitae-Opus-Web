@@ -29,6 +29,6 @@
 <mat-spinner class="loading-icon" diameter="20" *ngIf="isLoading"></mat-spinner>
 <p class="response-error"> {{ errorMessage }} </p>
 <div mat-dialog-actions>
-    <button mat-raised-button onclick="this.blur()" *ngIf="!titleFC.invalid && !descriptionFC.invalid && tags.value?.length <= 6" (click)="onCloseClick(true)" cdkFocusInitial>Add</button>
+    <button mat-raised-button onclick="this.blur()" *ngIf="!titleFC.invalid && !descriptionFC.invalid && tags.value?.length <= 4" (click)="onCloseClick(true)" cdkFocusInitial>Add</button>
     <button mat-raised-button onclick="this.blur()" (click)="onCloseClick(false)">Close</button>
 </div>

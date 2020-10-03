@@ -1,10 +1,9 @@
 import { Component, Inject, EventEmitter, Output } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {FormControl, Validators} from '@angular/forms';
 import { TagService } from 'src/app/services/tag.service';
 import { Tag } from 'src/app/models/Tag';
 import { Router } from '@angular/router';
-import { flatMap } from 'rxjs/operators';
 
 export interface DialogData {
   name: string
@@ -109,7 +108,7 @@ export class AddTagDialog {
     } else if (this.titleFC.hasError('pattern')) {
       return 'You must provide only alphanumeric or punctuation characters.';
     } else if (this.titleFC.hasError('maxlength')) {
-      return 'Your username can be at most 16 characters long.';
+      return 'Your tag can be at most 16 characters long.';
     } else {
       return '';
     }
