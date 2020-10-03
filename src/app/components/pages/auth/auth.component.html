@@ -31,7 +31,7 @@
     <mat-card class="auth-card" *ngSwitchCase="'register'">
         <p class="auth-title">Register</p>
         <form class="auth-form">
-            <table cellspacing="0"><tr>
+            <table cellspacing="0" style="margin: 0 auto;"><tr>
                 <td><mat-form-field style="width:130px;">
                     <mat-label>First name</mat-label>
                     <span matPrefix><mat-icon matSuffix>person</mat-icon>&nbsp;</span>
@@ -45,7 +45,7 @@
                     <mat-error *ngIf="lastNameFC.invalid">{{getLastNameErrorMessage()}}</mat-error>
                 </mat-form-field></td>
             </tr></table>
-            <table cellspacing="0"><tr>
+            <table cellspacing="0" style="margin: 0 auto;"><tr>
                 <td><mat-form-field style="width: 290px;">
                     <mat-label>Email</mat-label>
                     <span matPrefix><mat-icon matSuffix>email</mat-icon>&nbsp;</span>
@@ -53,7 +53,7 @@
                     <mat-error *ngIf="emailFC.invalid">{{getEmailErrorMessage()}}</mat-error>
                 </mat-form-field></td>
             </tr></table>
-            <table cellspacing="0"><tr>
+            <table cellspacing="0" style="margin: 0 auto;"><tr>
                 <td><mat-form-field style="width: 290px;">
                     <mat-label>Username</mat-label>
                     <span matPrefix><mat-icon matSuffix>person</mat-icon>&nbsp;</span>
@@ -61,7 +61,7 @@
                     <mat-error *ngIf="registerUsernameFC.invalid">{{getRegisterUsernameErrorMessage()}}</mat-error>
                 </mat-form-field></td>
             </tr></table>
-            <table cellspacing="0"><tr>
+            <table cellspacing="0" style="margin: 0 auto;"><tr>
                 <td><mat-form-field style="width:130px;">
                     <mat-label>Password</mat-label>
                     <span matPrefix><mat-icon matSuffix>lock</mat-icon>&nbsp;</span>
@@ -79,8 +79,10 @@
         <mat-spinner class="loading-icon" diameter="20" *ngIf="isLoading"></mat-spinner>
         <p class="response-error" *ngIf="responseErrorMessage">{{responseErrorMessage}}</p>
         <p class="response-success" *ngIf="responseSuccessMessage">{{responseSuccessMessage}}</p>
-        <button mat-raised-button style="margin-top: 15px; margin-right: 10px;" onclick="this.blur()" (click)="onRegisterClick()">Register</button>
-        <button mat-raised-button style="margin-top: 15px;" onclick="this.blur()" (click)="onBackClick()">Back</button>
+        <mat-card-actions style="text-align: center;">
+            <button mat-raised-button onclick="this.blur()" (click)="onRegisterClick()">Register</button>
+            <button mat-raised-button onclick="this.blur()" (click)="onBackClick()">Back</button>
+        </mat-card-actions>
     </mat-card>
 
     <mat-card class="auth-card" *ngSwitchCase="'forgot'">
