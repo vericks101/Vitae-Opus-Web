@@ -13,8 +13,8 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ResetService {
-  verifyResetUrl:string = 'http://localhost:3001/api/reset';
-  resetPasswordUrl:string = 'http://localhost:3001/api/resetPasswordViaUsername';
+  verifyResetUrl:string = 'https://vitae-opus-server.herokuapp.com/api/reset';
+  resetPasswordUrl:string = 'https://vitae-opus-server.herokuapp.com/api/resetPasswordViaUsername';
 
   constructor(private http:HttpClient) { }
 

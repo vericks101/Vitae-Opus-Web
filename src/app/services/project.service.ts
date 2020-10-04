@@ -15,7 +15,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ProjectService {
-  projectsUrl:string = 'http://localhost:3001/api/project';
+  projectsUrl:string = 'https://vitae-opus-server.herokuapp.com/api/project';
 
   constructor(private http:HttpClient) { }
 

@@ -13,7 +13,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class VerifyService {
-  verifyUrl:string = 'http://localhost:3001/api/verify';
+  verifyUrl:string = 'https://vitae-opus-server.herokuapp.com/api/verify';
 
   constructor(private http:HttpClient) { }
 

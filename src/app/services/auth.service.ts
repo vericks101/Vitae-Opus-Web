@@ -15,8 +15,8 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AuthService {
-  authUrl:string = 'http://localhost:3001/api/user';
-  forgotUrl:string = 'http://localhost:3001/api/forgotusernameorpassword';
+  authUrl:string = 'https://vitae-opus-server.herokuapp.com/api/user';
+  forgotUrl:string = 'https://vitae-opus-server.herokuapp.com/api/forgotusernameorpassword';
 
   constructor(private http:HttpClient) { }
 

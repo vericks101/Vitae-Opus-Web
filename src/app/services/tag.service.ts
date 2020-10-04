@@ -17,7 +17,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class TagService {
-  tagsUrl:string = 'http://localhost:3001/api/tag';
+  tagsUrl:string = 'https://vitae-opus-server.herokuapp.com/api/tag';
 
   private tagsSource = new BehaviorSubject<Tag[]>([]);
   currentTags = this.tagsSource.asObservable();

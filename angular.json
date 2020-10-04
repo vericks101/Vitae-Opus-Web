@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ProRep": {
+    "vitae-opus": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ProRep",
+            "outputPath": "dist/vitae-opus",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -63,18 +63,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ProRep:build"
+            "browserTarget": "vitae-opus:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ProRep:build:production"
+              "browserTarget": "vitae-opus:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ProRep:build"
+            "browserTarget": "vitae-opus:build"
           }
         },
         "test": {
@@ -112,18 +112,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ProRep:serve"
+            "devServerTarget": "vitae-opus:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ProRep:serve:production"
+              "devServerTarget": "vitae-opus:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "ProRep",
+  "defaultProject": "vitae-opus",
   "cli": {
     "analytics": "8ef62759-fa95-45da-8e1e-b4e6c1feff4a"
   }
