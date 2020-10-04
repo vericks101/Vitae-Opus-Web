@@ -1,7 +1,5 @@
 <body class="reset-background" [ngSwitch]="pageState">
-    <mat-card class="logo-card">
-        <p class="logo-title">Vitae Opus</p>
-    </mat-card>
+    <p class="logo-title">Vitae Opus</p>
 
     <mat-card class="reset-card" *ngSwitchCase="'loading'">
         <mat-spinner style="margin: 0 auto;"></mat-spinner>
@@ -11,7 +9,7 @@
         <p class="auth-title">Reset Password</p>
         <mat-card-content style="text-align: center">
             <form>
-                <mat-form-field style="width: 275px">
+                <mat-form-field style="width: 200px">
                     <mat-label>New Password</mat-label>
                     <span matPrefix><mat-icon matSuffix>lock</mat-icon>&nbsp;</span>
                     <input matInput [type]="'password'" [formControl]="passwordFC" required [(ngModel)]="newPassword">
