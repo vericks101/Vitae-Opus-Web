@@ -77,8 +77,8 @@
             </tr></table>
         </form>
         <mat-spinner class="loading-icon" diameter="20" *ngIf="isLoading"></mat-spinner>
-        <p class="response-error" *ngIf="responseErrorMessage">{{responseErrorMessage}}</p>
-        <p class="response-success" *ngIf="responseSuccessMessage">{{responseSuccessMessage}}</p>
+        <p class="reg-response-error" *ngIf="responseErrorMessage">{{responseErrorMessage}}</p>
+        <p class="reg-response-success" *ngIf="responseSuccessMessage">{{responseSuccessMessage}}</p>
         <mat-card-actions style="text-align: center;">
             <button mat-raised-button onclick="this.blur()" (click)="onRegisterClick()">Register</button>
             <button mat-raised-button onclick="this.blur()" (click)="onBackClick()">Back</button>

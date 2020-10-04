@@ -35,7 +35,7 @@ export class AddProjectComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result != undefined && result.tags.length <= 4) {
+      if (result != undefined && (result.tags === undefined || result.tags.length <= 4)) {
         this.title = result.title;
         this.description = result.description;
         this.tags = result.tags;

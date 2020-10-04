@@ -44,7 +44,10 @@ export class ProjectsComponent implements OnInit {
     this.projectService.getProjects({username: this.loggedInUsername, password: undefined}).subscribe(projects => {
       this.projects = projects;
     });
-    this.tagsService.currentTags.subscribe(tagsList => this.tagsList = tagsList);
+    this.tagsService.requestGetTags({username: this.loggedInUsername, password: undefined}).subscribe(tags => {
+      this.tagsService.updateTags(tags);
+      this.tagsService.currentTags.subscribe(tagsList => this.tagsList = tagsList);
+    });
   }
 
   onResize(event) {
