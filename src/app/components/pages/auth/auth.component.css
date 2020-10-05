@@ -114,6 +114,11 @@
     margin-left: 5px;
 }
 
+.reg-loading-icon {
+    margin-top: 10px;
+    margin: 0 auto;
+}
+
 :host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {   
     stroke: #000000;
 }

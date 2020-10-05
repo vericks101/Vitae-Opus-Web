@@ -36,10 +36,6 @@
     font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
 }
 
-.return-button {
-    /* width: 100%; */
-}
-
 :host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {   
     stroke: #000000;
 }

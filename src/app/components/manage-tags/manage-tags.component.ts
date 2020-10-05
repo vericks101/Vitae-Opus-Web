@@ -130,6 +130,8 @@ export class ManageTagsDialog implements OnInit {
           this.setErrorMessage();
           this.disableLoadingSpinner();
         });
+      } else {
+        this.disableLoadingSpinner();
       }
     },
     err => {

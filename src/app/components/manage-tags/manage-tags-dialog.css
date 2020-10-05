@@ -12,6 +12,10 @@
     justify-content: center;
 }
 
+.loading-icon {
+    margin: 0 auto;
+}
+
 .error-message {
     color: red;
     font-family: Roboto, "Helvetica Neue", sans-serif;
