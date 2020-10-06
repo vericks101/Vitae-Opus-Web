@@ -16,11 +16,13 @@
                     <mat-error *ngIf="passwordFC.invalid">{{getPasswordErrorMessage()}}</mat-error>
                 </mat-form-field>
             </form>
-            <button style="margin-top: 15px; margin-right: 10px;" mat-raised-button onclick="this.blur()" (click)="onSubmitClick()">Submit</button>
-            <button mat-raised-button onclick="this.blur()" (click)="onReturnToLogin()">Return to Login</button>
-            <mat-spinner class="loading-icon" diameter="20" *ngIf="isLoading"></mat-spinner>
+            <div>
+                <mat-spinner class="loading-icon" diameter="20" *ngIf="isLoading"></mat-spinner>
+            </div>
             <p class="response-error" *ngIf="responseErrorMessage">{{responseErrorMessage}}</p>
             <p class="response-success" *ngIf="responseSuccessMessage">{{responseSuccessMessage}}</p>
+            <button style="margin-top: 15px; margin-right: 10px;" mat-raised-button onclick="this.blur()" (click)="onSubmitClick()">Submit</button>
+            <button mat-raised-button onclick="this.blur()" (click)="onReturnToLogin()">Return to Login</button>
         </mat-card-content>
     </mat-card>
 
