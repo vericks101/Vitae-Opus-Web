@@ -18,6 +18,8 @@ export class VerifyEmailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // Grab the verification token and pass it to the server to ensure it is valid. If it is,
+    // render the success UI else render the failure UI.
     this.activatedRoute.params.subscribe(params => {
       let verifyEmail = new VerifyEmail(params.token);
       this.verifyService.verifyEmail(verifyEmail).subscribe(res => {
@@ -30,6 +32,7 @@ export class VerifyEmailComponent implements OnInit {
   }
 
   onReturnToLogin() {
+    // If the user clicks the return to login button, redirect to the login page.
     this.router.navigate(['']);
   }
 }

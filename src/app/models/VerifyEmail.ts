@@ -1,7 +1,7 @@
 export class VerifyEmail {
-    token:string;
+    token: string;
 
-    constructor(token:string) {
+    constructor(token: string) {
         this.token = token;
     }
 }

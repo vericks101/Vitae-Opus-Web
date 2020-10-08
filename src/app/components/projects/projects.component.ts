@@ -20,18 +20,19 @@ export class ProjectsComponent implements OnInit {
 
   breakpoint: number;
 
-  projects:Project[];
-  filteredProjects:Project[];
-  tagsList:Tag[];
+  projects: Project[];
+  filteredProjects: Project[];
+  tagsList: Tag[];
 
-  loggedInUsername:string;
+  loggedInUsername: string;
   
   constructor(
-    private projectService:ProjectService, 
+    private projectService: ProjectService, 
     private tagsService: TagService,
     private router: Router,
     private snackBar: MatSnackBar
     ) {
+      // Grab logged in username else redirect to login page.
       if (localStorage.getItem('loggedInUsername') === null) {
         this.router.navigate(['']);
       } else {
@@ -40,6 +41,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Get the current user's projects from the server and set the projects. Do the same for the user's tags.
     this.breakpoint = (window.innerWidth <= 1600) ? 1 : 5;
     this.projectService.getProjects({username: this.loggedInUsername, password: undefined}).subscribe(projects => {
       this.projects = projects;
@@ -55,6 +57,8 @@ export class ProjectsComponent implements OnInit {
   }
 
   deleteProject(project:Project) {
+    // With the provided project, request to remove the project from the server and if
+    // successful, remove locally and update in the UI.
     this.projectService.removeProject(project).subscribe(() => {
       this.projects = this.projects.filter(p => p.title !== project.title);
     },
@@ -64,26 +68,32 @@ export class ProjectsComponent implements OnInit {
   }
 
   editProject(project:Project) {
+    // Find the edited project and set it the new project.
     this.projects[this.projects.findIndex(p => p.title === project.oldTitle)] = project;
   }
 
   addProject(project:Project) {
+    // Given the new project, add it to the end of the projects listing.
     this.projects.push(project);
     this.onSelectedTagsOrSearchChange();
   }
 
   addTag(tag:Tag) {
+    // Given the new tag, add it the end of the tags listing.
     this.tagsList.push(tag);
     this.tagsService.updateTags(this.tagsList);
   }
 
   receiveAdd($event) {
+    // When a add is emitted, capture it here and add the project.
     this.addProject($event);
   }
 
   openSnackBar(message: string, action: string) {
+    // Called when a project is added. Open the snackbar with the provided message, action,
+    // and duration to be open.
     this.snackBar.open(message, action, {
-      duration: 300000,
+      duration: 3000,
     });
   }
 

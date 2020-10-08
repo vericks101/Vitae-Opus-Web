@@ -9,7 +9,5 @@ export class ProjectsPageComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void { }
 }

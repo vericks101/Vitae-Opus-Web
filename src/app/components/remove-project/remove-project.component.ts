@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-remove-project',
@@ -16,6 +16,7 @@ export class RemoveProjectComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      // If result is defined, emit the request for removal from the component.
       if (result)
         this.removeProject.emit();
     });

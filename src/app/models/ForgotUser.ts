@@ -1,7 +1,7 @@
 export class ForgotUser {
-    email:string;
+    email: string;
 
-    constructor(email:string) {
+    constructor(email: string) {
         this.email = email;
     }
 }

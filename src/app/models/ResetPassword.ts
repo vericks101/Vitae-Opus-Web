@@ -1,9 +1,9 @@
 export class ResetPassword {
-    token:string;
-    username:string;
-    password:string;
+    token: string;
+    username: string;
+    password: string;
 
-    constructor(token:string, username:string, password:string) {
+    constructor(token: string, username: string, password: string) {
         this.token = token;
         this.username = username;
         this.password = password;

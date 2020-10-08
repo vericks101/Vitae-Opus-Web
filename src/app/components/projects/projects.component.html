@@ -15,7 +15,6 @@
     <app-add-tag (addTag)="addTag($event)"></app-add-tag>
     <app-manage-tags></app-manage-tags>
     <span class="header-spacer"></span>
-    
 </mat-toolbar>
 <mat-toolbar>
     <div class="example-container">
@@ -47,5 +46,5 @@
                 <app-project-item [project]="project" (removeProject)="deleteProject($event)" (editProject)="editProject($event)"></app-project-item>
             </mat-grid-tile>
         </ng-container>
-</ng-template>
+    </ng-template>
 </mat-grid-list>

@@ -67,24 +67,24 @@ export class AuthPageComponent implements OnInit {
     Validators.maxLength(50)
   ]); 
 
-  authPage:string = 'login';
+  authPage: string = 'login';
 
-  loginUsername:string;
-  loginPassword:string;
+  loginUsername: string;
+  loginPassword: string;
 
-  registerFirstName:string;
-  registerLastName:string;
-  registerEmail:string;
-  registerUsername:string;
-  registerPassword:string;
-  registerConfirmPassword:string;
+  registerFirstName: string;
+  registerLastName: string;
+  registerEmail: string;
+  registerUsername: string;
+  registerPassword: string;
+  registerConfirmPassword: string;
 
-  forgotEmail:string;
+  forgotEmail: string;
 
-  responseErrorMessage:string = '';
-  responseSuccessMessage:string = '';
+  responseErrorMessage: string = '';
+  responseSuccessMessage: string = '';
 
-  isLoading:boolean = false;
+  isLoading: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -92,6 +92,7 @@ export class AuthPageComponent implements OnInit {
     ) { }
 
   ngOnInit(): void { 
+    // If the user is already logged in, redirect to the projects page.
     if (localStorage.getItem('loggedInUsername') !== null) {
         this.router.navigate(['projects']);
     }
@@ -129,6 +130,8 @@ export class AuthPageComponent implements OnInit {
 
   onLoginClick() {
     this.clearResponseMessages();
+    // If the username and password provided is valid, send credentials to the server and
+    // if successful, login the user else present error UI.
     if (this.usernameFC.valid && this.passwordFC.valid) {
       this.enableLoadingIcon();
       let loginUser = new LoginUser(this.loginUsername, this.loginPassword);
@@ -152,6 +155,9 @@ export class AuthPageComponent implements OnInit {
 
   onRegisterClick() {
     this.clearResponseMessages();
+    // If the provided registration details are valid, attempt to register the user and wait for a response.
+    // If the register response is successful, set the logged in username and redirect to the projects page.
+    // If the register response is not successful, present the error UI.
     if (this.firstNameFC.valid && this.lastNameFC.valid && this.emailFC.valid && this.registerUsernameFC.valid &&
       this.registerPasswordFC.valid && this.confirmPasswordFC.valid) {
         if (this.checkPasswordsMatch()) {
@@ -178,6 +184,7 @@ export class AuthPageComponent implements OnInit {
 
   onSendResetClick() {
     this.clearResponseMessages();
+    // If the provided email is valid, send a request to server.
     if (this.forgotEmailFC.valid) {
       this.enableLoadingIcon();
       let forgotUser = new ForgotUser(this.forgotEmail);

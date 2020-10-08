@@ -24,6 +24,7 @@ export class AddTagComponent {
   constructor(public dialog: MatDialog, 
     private router: Router
     ) {
+      // Grab the logged in username else redirect to the login page.
     if (localStorage.getItem('loggedInUsername') === null) {
       this.router.navigate(['']);
     } else {
@@ -31,12 +32,14 @@ export class AddTagComponent {
     }
   }
 
+  // Open and initialize dialog.
   openDialog(): void {
     const dialogRef = this.dialog.open(AddTagDialog, {
       data: {name: ''}
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      // Ensure result exists and if so, emit it from the component to be added.
       if (result != undefined) {
         this.name = result.name;
         const tag = {
@@ -75,20 +78,21 @@ export class AddTagDialog {
     private tagService: TagService,
     private router: Router
   ) {
-    this.clearErrorMessage();
-
+    // Grab logged in username else redirect to the login page.
     if (localStorage.getItem('loggedInUsername') === null) {
       this.router.navigate(['']);
     } else {
       this.loggedInUsername = localStorage.getItem('loggedInUsername');
     }
+    this.clearErrorMessage();
   }
   
   onCloseClick(addClose:boolean): void {
+    // If the command was to add the tag, push the new tag to the server and pass the data to the close function to be added to the UI.
     if (addClose) {
       this.clearErrorMessage();
       this.enableLoadingSpinner();
-      let tag:Tag = {username:this.loggedInUsername, name:this.data.name};
+      let tag: Tag = { username:this.loggedInUsername, name:this.data.name };
       this.tagService.requestAddTag(tag).subscribe(res => {
         this.disableLoadingSpinner();
         this.dialogRef.close(this.data);

@@ -1,6 +1,6 @@
 import { Component, Inject, EventEmitter, Output, Input, OnInit } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {FormControl, Validators} from '@angular/forms';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormControl, Validators } from '@angular/forms';
 import { Project } from 'src/app/models/Project';
 import { Tag } from 'src/app/models/Tag';
 import { TagService } from 'src/app/services/tag.service';
@@ -25,12 +25,14 @@ export class EditProjectComponent {
 
   constructor(public dialog: MatDialog) {}
 
+  // Open and initialize the dialog.
   openDialog(): void {
     const dialogRef = this.dialog.open(EditProjectDialog, {
       data: { oldTitle: this.project.title, updatedTitle: this.project.title, updatedDescription: this.project.description, updatedTags: this.project.tags }
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      // If the result is well defined, create a project out of it and emit it from the component to be edited.
       if (result != undefined && result.updatedTags.length <= 4) {
         this.project.title = result.updatedTitle
         this.project.description = result.updatedDescription
@@ -77,7 +79,7 @@ export class EditProjectDialog implements OnInit {
   ]);
 
   selectedTags = [];
-  tagsList:Tag[];
+  tagsList: Tag[];
   errorMessage: string;
   isLoading: boolean = false;
   loggedInUsername: string;
@@ -89,6 +91,7 @@ export class EditProjectDialog implements OnInit {
     private projectService: ProjectService,
     private router: Router
   ) {
+    // Pull username if it exists else redirect to the login page.
     if (localStorage.getItem('loggedInUsername') === null) {
       this.router.navigate(['']);
     } else {
@@ -98,6 +101,7 @@ export class EditProjectDialog implements OnInit {
    }
 
   ngOnInit() {
+    // Sync the current tags with the master tag service's tag listing.
     this.tagsService.currentTags.subscribe(tagsList => this.tagsList = tagsList);
     for (const tag of this.data.updatedTags) {
       this.selectedTags.push(tag.name);
@@ -106,6 +110,8 @@ export class EditProjectDialog implements OnInit {
   }
   
   onCloseClick(editClose: boolean): void {
+    // If the command is to edit the project, create a project object based on the edited data and push it the server.
+    // Also, pass it to the close function to be updated in the UI.
     if (editClose) {
       this.clearErrorMessage();
       this.enableLoadingSpinner();

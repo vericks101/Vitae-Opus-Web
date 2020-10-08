@@ -16,10 +16,10 @@
     <mat-label>Tags</mat-label>
     <mat-select [(value)]="selectedTags" multiple [(ngModel)]="data.updatedTags">
         <mat-select-trigger>
-            {{selectedTags ? selectedTags[0] : ''}}
-            <span *ngIf="selectedTags?.length > 1" class="tags-additional-selection">
-                (+{{selectedTags.length - 1}} {{selectedTags.length === 2 ? 'other' : 'others'}})
-            </span>
+          {{selectedTags ? selectedTags[0] : ''}}
+          <span *ngIf="selectedTags?.length > 1" class="tags-additional-selection">
+              (+{{selectedTags.length - 1}} {{selectedTags.length === 2 ? 'other' : 'others'}})
+          </span>
         </mat-select-trigger>
         <mat-option *ngFor="let tag of tagsList" [value]="tag.name">{{tag.name}}</mat-option>
     </mat-select>

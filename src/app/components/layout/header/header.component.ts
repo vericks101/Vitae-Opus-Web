@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 export interface DialogData {
@@ -19,52 +19,19 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // Ensure username exists else redirect to login page.
     if (localStorage.getItem('loggedInUsername') === null) {
         this.router.navigate(['']);
     }
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(ProfileDialog, {
-      data: {name: ''}
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-
-    });
-  }
-
   onSignOutClick() {
+    // Clear logged in user and redirect to login page.
     this.clearLoggedInUsername();
     this.router.navigate(['']);
   }
 
   clearLoggedInUsername() {
     localStorage.removeItem('loggedInUsername');
-  }
-}
-
-@Component({
-  selector: 'profile-dialog',
-  templateUrl: 'profile-dialog.html',
-  styleUrls: ['./profile-dialog.css']
-})
-export class ProfileDialog {
-  loggedInUsername: string;
-
-  constructor(
-    public dialogRef: MatDialogRef<ProfileDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private router: Router
-  ) {
-    if (localStorage.getItem('loggedInUsername') === null) {
-      this.router.navigate(['']);
-    } else {
-      this.loggedInUsername = localStorage.getItem('loggedInUsername');
-    }
-  }
-  
-  onCloseClick(): void {
-      this.dialogRef.close();
   }
 }

@@ -1,5 +1,5 @@
 import { Component, Inject, EventEmitter, Output, OnInit } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TagService } from 'src/app/services/tag.service';
 import { Tag } from 'src/app/models/Tag';
 import { Router } from '@angular/router';
@@ -19,7 +19,7 @@ export interface DialogData {
   styleUrls: ['./manage-tags.component.css']
 })
 export class ManageTagsComponent implements OnInit {
-  tagsList:Tag[];
+  tagsList: Tag[];
   loggedInUsername: string;
 
   @Output() addTag: EventEmitter<any> = new EventEmitter();
@@ -72,6 +72,7 @@ export class ManageTagsDialog implements OnInit {
     private tagsService: TagService,
     private projectsService: ProjectService
   ) { 
+    // Get the logged in username else redirect to login page.
     if (localStorage.getItem('loggedInUsername') === null) {
       this.router.navigate(['']);
     } else {
@@ -80,17 +81,20 @@ export class ManageTagsDialog implements OnInit {
   }
 
   ngOnInit() {
+    // Sync the current tags list with the master tag service's tag listing.
     this.tagsService.currentTags.subscribe(tagsList => this.tagsList = tagsList);
     this.clearErrorMessage();
     this.disableLoadingSpinner();
   }
 
+  // Open and initialize the dialog.
   openDialog(tagName: string): void {
     const dialogRef = this.dialog.open(RemoveTagDialog, { });
 
     dialogRef.afterClosed().subscribe(confirmClick => {
       this.enableLoadingSpinner();
       this.clearErrorMessage();
+      // If the command is confirmed to remove a tag, attempt to remove it.
       if (confirmClick) {
         // Ensure tag isn't currently in use.
         this.checkTagInUse(tagName).subscribe(projects => {
@@ -186,6 +190,7 @@ export class RemoveTagDialog implements OnInit {
   ) { }
 
   ngOnInit() {
+    // Sync the current tags to the master tag service's tag listing.
     this.tagsService.currentTags.subscribe(tagsList => this.tagsList = tagsList);
   }
   

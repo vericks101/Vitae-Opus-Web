@@ -19,14 +19,14 @@ export class ResetComponent implements OnInit {
     Validators.pattern(ALPHANUMERIC_REGEX)
   ]);
 
-  responseErrorMessage:string = '';
-  responseSuccessMessage:string = '';
-  isLoading:boolean = false;
+  responseErrorMessage: string = '';
+  responseSuccessMessage: string = '';
+  isLoading: boolean = false;
 
-  newPassword:string;
-  username:string;
+  newPassword: string;
+  username: string;
 
-  pageState:string = 'success';
+  pageState: string = 'success';
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -35,6 +35,8 @@ export class ResetComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // Grab the reset token and ensure it is valid and if, render the success UI else
+    // render the failure UI.
     this.activatedRoute.params.subscribe(params => {
       let resetPassword = new ResetPassword(params.token, undefined, undefined);
       this.resetService.verifyResetToken(resetPassword).subscribe(res => {

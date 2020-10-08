@@ -1,6 +1,6 @@
 import { Component, Inject, EventEmitter, Output, OnInit } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {FormControl, Validators} from '@angular/forms';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormControl, Validators } from '@angular/forms';
 import { Tag } from 'src/app/models/Tag';
 import { TagService } from 'src/app/services/tag.service';
 import { Project } from 'src/app/models/Project';
@@ -29,12 +29,14 @@ export class AddProjectComponent {
 
   constructor(public dialog: MatDialog) { }
 
+  // Called when Dialog is opened and initialized.
   openDialog(): void {
     const dialogRef = this.dialog.open(AddProjectDialog, {
       data: {title: '', description: '', tags: undefined}
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      // Ensure that the dialog result is well defined and emit it from the component to be added.
       if (result != undefined && (result.tags === undefined || result.tags.length <= 4)) {
         this.title = result.title;
         this.description = result.description;
@@ -85,6 +87,7 @@ export class AddProjectDialog implements OnInit {
     private projectService: ProjectService,
     private router: Router
   ) {
+    // Pull username if user is logged in else redirect to login page.
     if (localStorage.getItem('loggedInUsername') === null) {
       this.router.navigate(['']);
     } else {
@@ -94,10 +97,13 @@ export class AddProjectDialog implements OnInit {
   }
 
   ngOnInit() {
+    // Sync current tags with master tag service's tag listing.
     this.tagsService.currentTags.subscribe(tagsList => this.tagsList = tagsList);
   }
   
   onCloseClick(addClose: boolean): void {
+    // If the dialog was closed with the command to add a project, disable loading UI and push project
+    // to the server and pass data to the close function to be added to the UI.
     if (addClose) {
       this.clearErrorMessage();
       this.enableLoadingSpinner();

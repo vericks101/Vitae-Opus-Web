@@ -16,7 +16,8 @@ export class ProjectItemComponent implements OnInit {
 
   constructor(
     private router: Router
-  ) { 
+  ) {
+    // Pull the logged in username else redirect to the login page.
     if (localStorage.getItem('loggedInUsername') === null) {
       this.router.navigate(['']);
     } else {
@@ -26,11 +27,13 @@ export class ProjectItemComponent implements OnInit {
 
   ngOnInit(): void { }
 
+  // If a edit is emitted, capture it here and emit it further.
   receiveEdit($event) {
     this.project = $event;
     this.editProject.emit(this.project);
   }
 
+  // If the removal is emitted, capture it here and emit it further.
   receiveRemoval() {
     this.project.username = this.loggedInUsername;
     this.removeProject.emit(this.project);
