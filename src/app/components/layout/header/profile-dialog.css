@@ -1,0 +1,12 @@
+.response-error {
+    padding-top: 10px;
+    padding-left: 5px;
+    color: red;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+:host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {   
+    stroke: #000000;
+}

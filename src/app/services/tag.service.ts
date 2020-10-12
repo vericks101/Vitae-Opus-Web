@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Tag } from '../models/Tag';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';

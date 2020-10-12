@@ -5,6 +5,10 @@
         <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="openDialog()">
+            <mat-icon>person</mat-icon>
+            <span>Profile</span>
+        </button>
         <button mat-menu-item (click)="onSignOutClick()">
             <mat-icon>arrow_back</mat-icon>
             <span>Sign Out</span>

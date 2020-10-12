@@ -23,6 +23,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/layout/header/header.component';
+import { ProfileDialog } from './components/layout/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProjectItemComponent } from './components/project-item/project-item.component';
 import { AddProjectComponent } from './components/add-project/add-project.component';
@@ -47,6 +48,7 @@ import { RemoveTagDialog } from './components/manage-tags/manage-tags.component'
   declarations: [
     AppComponent,
     HeaderComponent,
+    ProfileDialog,
     ProjectsComponent,
     ProjectItemComponent,
     AddProjectComponent,
