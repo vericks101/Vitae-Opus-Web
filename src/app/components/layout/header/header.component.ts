@@ -37,21 +37,11 @@ export class HeaderComponent implements OnInit {
 
   // Called when Dialog is opened and initialized.
   openDialog(): void {
-    let profile: Profile = {
-      username: this.loggedInUsername,
-      email: undefined,
-      firstName: undefined,
-      lastName: undefined
-    };
-    this.profileService.getProfile(profile).subscribe(profile => {
-      console.log(profile);
       const dialogRef = this.dialog.open(ProfileDialog, {
-        data: {firstName: profile.firstName, lastName: profile.lastName, username: profile.username, email: profile.email}
+        data: {firstName: '', lastName: '', username: '', email: ''}
       });
 
       dialogRef.afterClosed().subscribe(() => { });
-    },
-    err => { });
   }
 
   onSignOutClick() {
@@ -88,6 +78,7 @@ export class ProfileDialog {
   errorMessage: string;
   isLoading: boolean = false;
   loggedInUsername: string;
+  profilePage: string;
 
   constructor(
     public dialogRef: MatDialogRef<ProfileDialog>,
@@ -95,6 +86,8 @@ export class ProfileDialog {
     private profileService: ProfileService,
     private router: Router
   ) {
+    this.clearErrorMessage();
+    this.setLoadingPage();
     // Pull username if user is logged in else redirect to login page.
     if (localStorage.getItem('loggedInUsername') === null) {
       this.router.navigate(['']);
@@ -102,7 +95,22 @@ export class ProfileDialog {
       this.loggedInUsername = localStorage.getItem('loggedInUsername');
     }
 
-    this.clearErrorMessage();
+    // Grab profile data and once received, set data and update UI to loaded state.
+    let profile: Profile = {
+      username: this.loggedInUsername,
+      email: undefined,
+      firstName: undefined,
+      lastName: undefined
+    };
+    this.profileService.getProfile(profile).subscribe(profile => {
+      this.data.email = profile.email;
+      this.data.firstName = profile.firstName;
+      this.data.lastName = profile.lastName;
+      this.data.username = profile.username;
+
+      this.setProfilePage();
+    },
+    err => { });
   }
   
   onCloseClick(editClose: boolean): void {
@@ -172,5 +180,13 @@ export class ProfileDialog {
 
   enableLoadingSpinner(): void {
     this.isLoading = true;
+  }
+
+  setProfilePage(): void {
+    this.profilePage = 'profile';
+  }
+
+  setLoadingPage(): void {
+    this.profilePage = 'loading';
   }
 }

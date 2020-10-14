@@ -14,7 +14,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ProfileService {
-  profileUrl:string = 'http://localhost:3001/api/profile/';
+  profileUrl:string = 'https://vitae-opus-server.herokuapp.com/api/profile';
 
   constructor(private http:HttpClient) { }
 

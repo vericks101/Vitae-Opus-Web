@@ -1,37 +1,42 @@
-<h1 mat-dialog-title cdkFocusInitial>Profile</h1>
-<form>
-    <table cellspacing="0"><tr>
-        <td><mat-form-field style="width:250px; padding-right: 10px;">
-            <mat-label>First name</mat-label>
-            <span matPrefix><mat-icon matSuffix>person</mat-icon>&nbsp;</span>
-            <input matInput [formControl]="firstNameFC" required [(ngModel)]="data.firstName">
-            <mat-error *ngIf="firstNameFC.invalid">{{getFirstNameErrorMessage()}}</mat-error>
-        </mat-form-field></td>
-        <td><mat-form-field style="width: 250px;">
-            <mat-label>Last Name</mat-label>
-            <span matPrefix><mat-icon matSuffix>person</mat-icon>&nbsp;</span>
-            <input matInput [formControl]="lastNameFC" required [(ngModel)]="data.lastName">
-            <mat-error *ngIf="lastNameFC.invalid">{{getLastNameErrorMessage()}}</mat-error>
-        </mat-form-field></td>
-    </tr></table>
-    <table cellspacing="0"><tr>
-        <td><mat-form-field style="width: 500px;">
-            <mat-label>Email</mat-label>
-            <span matPrefix><mat-icon matSuffix>email</mat-icon>&nbsp;</span>
-            <input matInput disabled [(ngModel)]="data.email" [ngModelOptions]="{standalone: true}">
-        </mat-form-field></td>
-    </tr></table>
-    <table cellspacing="0"><tr>
-        <td><mat-form-field style="width: 500px;">
-            <mat-label>Username</mat-label>
-            <span matPrefix><mat-icon matSuffix>person</mat-icon>&nbsp;</span>
-            <input matInput disabled [(ngModel)]="data.username" [ngModelOptions]="{standalone: true}">
-        </mat-form-field></td>
-    </tr></table>
-</form>
-<mat-spinner class="loading-icon" diameter="20" *ngIf="isLoading"></mat-spinner>
-<p class="response-error"> {{ errorMessage }} </p>
-<div mat-dialog-actions>
-    <button mat-raised-button onclick="this.blur()" *ngIf="!firstNameFC.invalid && !lastNameFC.invalid" (click)="onCloseClick(true)" cdkFocusInitial>Update</button>
-    <button mat-raised-button onclick="this.blur()" (click)="onCloseClick(false)">Close</button>
-</div>
+<body class="auth-background" [ngSwitch]="profilePage">
+    <mat-spinner class="loading-icon" diameter="20" *ngSwitchCase="'loading'"></mat-spinner>
+    <div *ngSwitchCase="'profile'">
+        <h1 mat-dialog-title cdkFocusInitial>Profile</h1>
+        <form>
+            <table cellspacing="0"><tr>
+                <td><mat-form-field style="width:250px; padding-right: 10px;">
+                    <mat-label>First name</mat-label>
+                    <span matPrefix><mat-icon matSuffix>person</mat-icon>&nbsp;</span>
+                    <input matInput [formControl]="firstNameFC" required [(ngModel)]="data.firstName">
+                    <mat-error *ngIf="firstNameFC.invalid">{{getFirstNameErrorMessage()}}</mat-error>
+                </mat-form-field></td>
+                <td><mat-form-field style="width: 250px;">
+                    <mat-label>Last Name</mat-label>
+                    <span matPrefix><mat-icon matSuffix>person</mat-icon>&nbsp;</span>
+                    <input matInput [formControl]="lastNameFC" required [(ngModel)]="data.lastName">
+                    <mat-error *ngIf="lastNameFC.invalid">{{getLastNameErrorMessage()}}</mat-error>
+                </mat-form-field></td>
+            </tr></table>
+            <table cellspacing="0"><tr>
+                <td><mat-form-field style="width: 500px;">
+                    <mat-label>Email</mat-label>
+                    <span matPrefix><mat-icon matSuffix>email</mat-icon>&nbsp;</span>
+                    <input matInput disabled [(ngModel)]="data.email" [ngModelOptions]="{standalone: true}">
+                </mat-form-field></td>
+            </tr></table>
+            <table cellspacing="0"><tr>
+                <td><mat-form-field style="width: 500px;">
+                    <mat-label>Username</mat-label>
+                    <span matPrefix><mat-icon matSuffix>person</mat-icon>&nbsp;</span>
+                    <input matInput disabled [(ngModel)]="data.username" [ngModelOptions]="{standalone: true}">
+                </mat-form-field></td>
+            </tr></table>
+        </form>
+        <mat-spinner class="loading-icon" diameter="20" *ngIf="isLoading"></mat-spinner>
+        <p class="response-error"> {{ errorMessage }} </p>
+        <div mat-dialog-actions>
+            <button mat-raised-button onclick="this.blur()" *ngIf="!firstNameFC.invalid && !lastNameFC.invalid" (click)="onCloseClick(true)" cdkFocusInitial>Update</button>
+            <button mat-raised-button onclick="this.blur()" (click)="onCloseClick(false)">Close</button>
+        </div>
+    </div>
+</body>
