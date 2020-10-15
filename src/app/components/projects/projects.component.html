@@ -1,50 +1,57 @@
 <app-header></app-header>
-<mat-toolbar class="header-bottom-toolbar">
-    <mat-form-field appearance="legacy">
-        <mat-label>Tags</mat-label>
-        <mat-select [(value)]="selectedTags" multiple (selectionChange)="onSelectedTagsOrSearchChange()">
-            <mat-select-trigger>
-                {{selectedTags ? selectedTags[0] : ''}}
-                <span *ngIf="selectedTags?.length > 1" class="tags-additional-selection">
-                    (+{{selectedTags.length - 1}} {{selectedTags.length === 2 ? 'other' : 'others'}})
-                </span>
-            </mat-select-trigger>
-            <mat-option *ngFor="let tag of tagsList" [value]="tag.name">{{tag.name}}</mat-option>
-        </mat-select>
-    </mat-form-field>
-    <app-add-tag (addTag)="addTag($event)"></app-add-tag>
-    <app-manage-tags></app-manage-tags>
-    <span class="header-spacer"></span>
-</mat-toolbar>
-<mat-toolbar>
-    <div class="example-container">
-        <mat-form-field appearance="legacy" class="header-search-form">
-            <mat-label>Search</mat-label>
-            <input matInput placeholder="Search via Keywords" type="text" [(ngModel)]="searchValue" (ngModelChange)="onSelectedTagsOrSearchChange()">
-            <button mat-button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''; onSelectedTagsOrSearchChange()">
-            <mat-icon>close</mat-icon>
-            </button>
-        </mat-form-field>
+<body class="auth-background" [ngSwitch]="projectsPage">
+    <div class="center" *ngSwitchCase="'loading'">
+        <mat-spinner class="loading-icon" diameter="20"></mat-spinner>
     </div>
-</mat-toolbar>
-<mat-toolbar>
-    <app-add-project (addProject)="receiveAdd($event)"></app-add-project>
-</mat-toolbar>
-<mat-divider></mat-divider>
-<mat-grid-list [cols]="breakpoint" rowHeight="1.0:1" (window:resize)="onResize($event)">
-    <ng-container *ngIf="!tagsOrSearchPresent; then showProjects; else showFilteredProjects"></ng-container>
-    <ng-template #showProjects>
-        <ng-container *ngFor="let project of projects">
-            <mat-grid-tile>
-                <app-project-item [project]="project" (removeProject)="deleteProject($event)" (editProject)="editProject($event)"></app-project-item>
-            </mat-grid-tile>
-        </ng-container>
-    </ng-template>
-    <ng-template #showFilteredProjects>
-        <ng-container *ngFor="let project of filteredProjects">
-            <mat-grid-tile>
-                <app-project-item [project]="project" (removeProject)="deleteProject($event)" (editProject)="editProject($event)"></app-project-item>
-            </mat-grid-tile>
-        </ng-container>
-    </ng-template>
-</mat-grid-list>
+    <div *ngSwitchCase="'projects'">
+        <mat-toolbar class="header-bottom-toolbar">
+            <mat-form-field appearance="legacy">
+                <mat-label>Tags</mat-label>
+                <mat-select [(value)]="selectedTags" multiple (selectionChange)="onSelectedTagsOrSearchChange()">
+                    <mat-select-trigger>
+                        {{selectedTags ? selectedTags[0] : ''}}
+                        <span *ngIf="selectedTags?.length > 1" class="tags-additional-selection">
+                            (+{{selectedTags.length - 1}} {{selectedTags.length === 2 ? 'other' : 'others'}})
+                        </span>
+                    </mat-select-trigger>
+                    <mat-option *ngFor="let tag of tagsList" [value]="tag.name">{{tag.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <app-add-tag (addTag)="addTag($event)"></app-add-tag>
+            <app-manage-tags></app-manage-tags>
+            <span class="header-spacer"></span>
+        </mat-toolbar>
+        <mat-toolbar>
+            <div class="example-container">
+                <mat-form-field appearance="legacy" class="header-search-form">
+                    <mat-label>Search</mat-label>
+                    <input matInput placeholder="Search via Keywords" type="text" [(ngModel)]="searchValue" (ngModelChange)="onSelectedTagsOrSearchChange()">
+                    <button mat-button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''; onSelectedTagsOrSearchChange()">
+                    <mat-icon>close</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </mat-toolbar>
+        <mat-toolbar>
+            <app-add-project (addProject)="receiveAdd($event)"></app-add-project>
+        </mat-toolbar>
+        <mat-divider></mat-divider>
+        <mat-grid-list [cols]="breakpoint" rowHeight="1.0:1" (window:resize)="onResize($event)">
+            <ng-container *ngIf="!tagsOrSearchPresent; then showProjects; else showFilteredProjects"></ng-container>
+            <ng-template #showProjects>
+                <ng-container *ngFor="let project of projects">
+                    <mat-grid-tile>
+                        <app-project-item [project]="project" (removeProject)="deleteProject($event)" (editProject)="editProject($event)"></app-project-item>
+                    </mat-grid-tile>
+                </ng-container>
+            </ng-template>
+            <ng-template #showFilteredProjects>
+                <ng-container *ngFor="let project of filteredProjects">
+                    <mat-grid-tile>
+                        <app-project-item [project]="project" (removeProject)="deleteProject($event)" (editProject)="editProject($event)"></app-project-item>
+                    </mat-grid-tile>
+                </ng-container>
+            </ng-template>
+        </mat-grid-list>
+    </div>
+</body>

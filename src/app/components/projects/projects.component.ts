@@ -25,6 +25,7 @@ export class ProjectsComponent implements OnInit {
   tagsList: Tag[];
 
   loggedInUsername: string;
+  projectsPage: string;
   
   constructor(
     private projectService: ProjectService, 
@@ -41,14 +42,19 @@ export class ProjectsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.setLoadingPage();
+
     // Get the current user's projects from the server and set the projects. Do the same for the user's tags.
     this.breakpoint = (window.innerWidth <= 1600) ? 1 : 5;
     this.projectService.getProjects({username: this.loggedInUsername, password: undefined}).subscribe(projects => {
       this.projects = projects;
-    });
-    this.tagsService.requestGetTags({username: this.loggedInUsername, password: undefined}).subscribe(tags => {
-      this.tagsService.updateTags(tags);
-      this.tagsService.currentTags.subscribe(tagsList => this.tagsList = tagsList);
+
+      this.tagsService.requestGetTags({username: this.loggedInUsername, password: undefined}).subscribe(tags => {
+        this.tagsService.updateTags(tags);
+        this.tagsService.currentTags.subscribe(tagsList => this.tagsList = tagsList);
+
+        this.setProjectsPage();
+      });
     });
   }
 
@@ -140,5 +146,13 @@ export class ProjectsComponent implements OnInit {
     } else if (!this.tagsOrSearchPresent) {
       this.tagsOrSearchPresent = false;
     }
+  }
+
+  setLoadingPage(): void {
+    this.projectsPage = 'loading';
+  }
+
+  setProjectsPage(): void {
+    this.projectsPage = 'projects';
   }
 }
