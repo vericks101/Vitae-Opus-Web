@@ -101,16 +101,19 @@ export class AuthPageComponent implements OnInit {
   onSignUpClick() {
     this.authPage = 'register';
     this.clearInputFields();
+    this.resetLoadingIcon();
   }
 
   onBackClick() {
     this.authPage = 'login';
     this.clearInputFields();
+    this.resetLoadingIcon();
   }
 
   onForgotClick() {
     this.authPage = 'forgot';
     this.clearInputFields();
+    this.resetLoadingIcon();
   }
 
   enableLoadingIcon() {
@@ -231,6 +234,10 @@ export class AuthPageComponent implements OnInit {
       this.responseErrorMessage = 'Passwords don\'t match.';
       return false;
     }
+  }
+
+  resetLoadingIcon() {
+    this.isLoading = false;
   }
 
   getUsernameErrorMessage() {

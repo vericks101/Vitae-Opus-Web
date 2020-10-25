@@ -76,15 +76,15 @@
                 </mat-form-field></td>
             </tr></table>
         </form>
+        <mat-card-actions style="text-align: center; padding-top: 15px;">
+            <button mat-raised-button onclick="this.blur()" (click)="onRegisterClick()">Register</button>
+            <button mat-raised-button onclick="this.blur()" (click)="onBackClick()">Back</button>
+        </mat-card-actions>
         <div>
             <mat-spinner class="reg-loading-icon" diameter="20" *ngIf="isLoading"></mat-spinner>
         </div>
         <p class="reg-response-error" *ngIf="responseErrorMessage">{{responseErrorMessage}}</p>
         <p class="reg-response-success" *ngIf="responseSuccessMessage">{{responseSuccessMessage}}</p>
-        <mat-card-actions style="text-align: center; padding-top: 15px;">
-            <button mat-raised-button onclick="this.blur()" (click)="onRegisterClick()">Register</button>
-            <button mat-raised-button onclick="this.blur()" (click)="onBackClick()">Back</button>
-        </mat-card-actions>
     </mat-card>
 
     <mat-card class="auth-card" *ngSwitchCase="'forgot'">
@@ -98,11 +98,11 @@
                     <mat-error *ngIf="forgotEmailFC.invalid">{{getForgotEmailErrorMessage()}}</mat-error>
                 </mat-form-field>
             </form>
+            <button mat-raised-button style="margin-top: 5px; margin-right: 10px;" onclick="this.blur()" (click)="onSendResetClick()">Send</button>
+            <button mat-raised-button style="margin-top: 5px;" onclick="this.blur()" (click)="onBackClick()">Back</button>
             <mat-spinner class="loading-icon" diameter="20" *ngIf="isLoading"></mat-spinner>
             <p class="response-error" *ngIf="responseErrorMessage">{{responseErrorMessage}}</p>
             <p class="response-success" *ngIf="responseSuccessMessage">{{responseSuccessMessage}}</p>
-            <button mat-raised-button style="margin-top: 5px; margin-right: 10px;" onclick="this.blur()" (click)="onSendResetClick()">Send</button>
-            <button mat-raised-button style="margin-top: 5px;" onclick="this.blur()" (click)="onBackClick()">Back</button>
         </mat-card-content>
     </mat-card>
 </body>
