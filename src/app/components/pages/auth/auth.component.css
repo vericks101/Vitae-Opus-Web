@@ -45,6 +45,12 @@
     letter-spacing: normal;
 }
 
+.register-title {
+    font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+    letter-spacing: normal;
+    text-align: center;
+}
+
 .mat-form-field {
     margin-right: 10px;
 }
