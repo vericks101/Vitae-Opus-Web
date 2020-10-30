@@ -1,7 +1,8 @@
 .auth-background {
-    background-color: #fbfbfb;
     height: 100vh;
     background-size: cover;
+    background: rgb(236,236,236);
+    background: linear-gradient(90deg, rgba(236,236,236,1) 0%, rgba(255,255,255,1) 100%);
 }
 
 .auth-card {
