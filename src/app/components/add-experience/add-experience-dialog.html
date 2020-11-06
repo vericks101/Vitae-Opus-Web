@@ -1,13 +1,13 @@
-<h1 mat-dialog-title>Add Project</h1>
+<h1 mat-dialog-title>Add Experience</h1>
 <div mat-dialog-content>
   <mat-form-field>
-    <mat-label>Project Title</mat-label>
+    <mat-label>Experience Title</mat-label>
     <input matInput cdkFocusInitial [formControl]="titleFC" required [(ngModel)]="data.title">
     <mat-error *ngIf="titleFC.invalid">{{getTitleErrorMessage()}}</mat-error>
   </mat-form-field>
   <br>
   <mat-form-field>
-    <mat-label>Project Description</mat-label>
+    <mat-label>Experience Description</mat-label>
     <textarea matInput cdkTextareaAutosize [formControl]="descriptionFC" required style="overflow: hidden;" [(ngModel)]="data.description"></textarea>
     <mat-error *ngIf="descriptionFC.invalid">{{getDescriptionErrorMessage()}}</mat-error>
   </mat-form-field>

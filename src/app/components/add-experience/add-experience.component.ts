@@ -3,11 +3,11 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { FormControl, Validators } from '@angular/forms';
 import { Tag } from 'src/app/models/Tag';
 import { TagService } from 'src/app/services/tag.service';
-import { Project } from 'src/app/models/Project';
-import { ProjectService } from 'src/app/services/project.service';
+import { Experience } from 'src/app/models/Experience';
+import { ExperienceService } from 'src/app/services/experience.service';
 import { Router } from '@angular/router';
 
-const GENERAL_ADD_ERROR: string = 'There was a problem adding the project... Please try again after some time.';
+const GENERAL_ADD_ERROR: string = 'There was a problem adding the experience... Please try again after some time.';
 
 export interface DialogData {
   title: string,
@@ -16,22 +16,22 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'app-add-project',
-  templateUrl: './add-project.component.html',
-  styleUrls: ['./add-project.component.css']
+  selector: 'app-add-experience',
+  templateUrl: './add-experience.component.html',
+  styleUrls: ['./add-experience.component.css']
 })
-export class AddProjectComponent {
+export class AddExperienceComponent {
   title: string;
   description: string;
   tags: Tag[];
 
-  @Output() addProject: EventEmitter<any> = new EventEmitter();
+  @Output() addExperience: EventEmitter<any> = new EventEmitter();
 
   constructor(public dialog: MatDialog) { }
 
   // Called when Dialog is opened and initialized.
   openDialog(): void {
-    const dialogRef = this.dialog.open(AddProjectDialog, {
+    const dialogRef = this.dialog.open(AddExperienceDialog, {
       data: {title: '', description: '', tags: undefined}
     });
 
@@ -42,27 +42,27 @@ export class AddProjectComponent {
         this.description = result.description;
         this.tags = result.tags;
   
-        const project = {
+        const experience = {
           title: this.title,
           description: this.description,
           tags: this.tags
         }
     
-        this.addProject.emit(project);
+        this.addExperience.emit(experience);
       }
     });
   }
 }
 
 const FREEFORMTEXT_REGEX:string = '^[a-zA-Z0-9,./\'!%&;: ]*$';
-const TAGS_ERROR_MSG:string = 'You can only have up to 6 tags.';
+const TAGS_ERROR_MSG:string = 'You can only have up to 4 tags.';
 
 @Component({
-  selector: 'add-project-dialog',
-  templateUrl: 'add-project-dialog.html',
-  styleUrls: ['./add-project-dialog.css']
+  selector: 'add-experience-dialog',
+  templateUrl: 'add-experience-dialog.html',
+  styleUrls: ['./add-experience-dialog.css']
 })
-export class AddProjectDialog implements OnInit {
+export class AddExperienceDialog implements OnInit {
   titleFC = new FormControl('', [
     Validators.required,
     Validators.pattern(FREEFORMTEXT_REGEX),
@@ -81,10 +81,10 @@ export class AddProjectDialog implements OnInit {
   loggedInUsername: string;
 
   constructor(
-    public dialogRef: MatDialogRef<AddProjectDialog>,
+    public dialogRef: MatDialogRef<AddExperienceDialog>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private tagsService: TagService,
-    private projectService: ProjectService,
+    private experienceService: ExperienceService,
     private router: Router
   ) {
     // Pull username if user is logged in else redirect to login page.
@@ -102,12 +102,12 @@ export class AddProjectDialog implements OnInit {
   }
   
   onCloseClick(addClose: boolean): void {
-    // If the dialog was closed with the command to add a project, disable loading UI and push project
+    // If the dialog was closed with the command to add an experience, disable loading UI and push experience
     // to the server and pass data to the close function to be added to the UI.
     if (addClose) {
       this.clearErrorMessage();
       this.enableLoadingSpinner();
-      let project:Project = {
+      let experience:Experience = {
         username: this.loggedInUsername, 
         title: this.data.title, 
         description: this.data.description, 
@@ -117,7 +117,7 @@ export class AddProjectDialog implements OnInit {
         updatedTags: undefined,
         oldTitle: undefined
       };
-      this.projectService.addProject(project).subscribe(res => {
+      this.experienceService.addExperience(experience).subscribe(res => {
         this.disableLoadingSpinner();
         this.dialogRef.close(this.data);
       },

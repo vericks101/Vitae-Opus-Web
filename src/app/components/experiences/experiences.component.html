@@ -1,9 +1,9 @@
 <app-header></app-header>
-<body class="auth-background" [ngSwitch]="projectsPage">
+<body class="auth-background" [ngSwitch]="experiencesPage">
     <div class="center" *ngSwitchCase="'loading'">
         <mat-spinner class="loading-icon" diameter="20"></mat-spinner>
     </div>
-    <div *ngSwitchCase="'projects'">
+    <div *ngSwitchCase="'experiences'">
         <mat-toolbar class="header-bottom-toolbar">
             <mat-form-field appearance="legacy">
                 <mat-label>Tags</mat-label>
@@ -33,22 +33,22 @@
             </div>
         </mat-toolbar>
         <mat-toolbar>
-            <app-add-project (addProject)="receiveAdd($event)"></app-add-project>
+            <app-add-experience (addExperience)="receiveAdd($event)"></app-add-experience>
         </mat-toolbar>
         <mat-divider></mat-divider>
         <mat-grid-list [cols]="breakpoint" rowHeight="1.0:1" (window:resize)="onResize($event)">
-            <ng-container *ngIf="!tagsOrSearchPresent; then showProjects; else showFilteredProjects"></ng-container>
-            <ng-template #showProjects>
-                <ng-container *ngFor="let project of projects">
+            <ng-container *ngIf="!tagsOrSearchPresent; then showExperiences; else showFilteredExperiences"></ng-container>
+            <ng-template #showExperiences>
+                <ng-container *ngFor="let experience of experiences">
                     <mat-grid-tile>
-                        <app-project-item [project]="project" (removeProject)="deleteProject($event)" (editProject)="editProject($event)"></app-project-item>
+                        <app-experience-item [experience]="experience" (removeExperience)="deleteExperience($event)" (editExperience)="editExperience($event)"></app-experience-item>
                     </mat-grid-tile>
                 </ng-container>
             </ng-template>
-            <ng-template #showFilteredProjects>
-                <ng-container *ngFor="let project of filteredProjects">
+            <ng-template #showFilteredExperiences>
+                <ng-container *ngFor="let experience of filteredExperiences">
                     <mat-grid-tile>
-                        <app-project-item [project]="project" (removeProject)="deleteProject($event)" (editProject)="editProject($event)"></app-project-item>
+                        <app-experience-item [experience]="experience" (removeExperience)="deleteExperience($event)" (editExperience)="editExperience($event)"></app-experience-item>
                     </mat-grid-tile>
                 </ng-container>
             </ng-template>

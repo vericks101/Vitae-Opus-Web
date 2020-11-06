@@ -25,17 +25,17 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { ProfileDialog } from './components/layout/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ProjectItemComponent } from './components/project-item/project-item.component';
-import { AddProjectComponent } from './components/add-project/add-project.component';
-import { AddProjectDialog } from './components/add-project/add-project.component';
+import { ExperienceItemComponent } from './components/experience-item/experience-item.component';
+import { AddExperienceComponent } from './components/add-experience/add-experience.component';
+import { AddExperienceDialog } from './components/add-experience/add-experience.component';
 import { AddTagComponent } from './components/add-tag/add-tag.component';
 import { AddTagDialog } from './components/add-tag/add-tag.component';
-import { EditProjectComponent } from './components/edit-project/edit-project.component';
-import { EditProjectDialog } from './components/edit-project/edit-project.component';
-import { RemoveProjectComponent } from './components/remove-project/remove-project.component';
-import { RemoveProjectDialog } from './components/remove-project/remove-project.component';
-import { ProjectsPageComponent } from './components/pages/projects/projects.component';
-import { ProjectsComponent } from './components/projects/projects.component';
+import { EditExperienceComponent } from './components/edit-experience/edit-experience.component';
+import { EditExperienceDialog } from './components/edit-experience/edit-experience.component';
+import { RemoveExperienceComponent } from './components/remove-experience/remove-experience.component';
+import { RemoveExperienceDialog } from './components/remove-experience/remove-experience.component';
+import { ExperiencesPageComponent } from './components/pages/experiences/experiences.component';
+import { ExperiencesComponent } from './components/experiences/experiences.component';
 import { AuthPageComponent } from './components/pages/auth/auth.component';
 import { VerifyEmailComponent } from './components/pages/verify-email/verify-email.component';
 import { ResetComponent } from './components/pages/reset/reset.component';
@@ -49,17 +49,17 @@ import { RemoveTagDialog } from './components/manage-tags/manage-tags.component'
     AppComponent,
     HeaderComponent,
     ProfileDialog,
-    ProjectsComponent,
-    ProjectItemComponent,
-    AddProjectComponent,
-    AddProjectDialog,
+    ExperiencesComponent,
+    ExperienceItemComponent,
+    AddExperienceComponent,
+    AddExperienceDialog,
     AddTagComponent,
     AddTagDialog,
-    EditProjectComponent,
-    EditProjectDialog,
-    RemoveProjectComponent,
-    RemoveProjectDialog,
-    ProjectsPageComponent,
+    EditExperienceComponent,
+    EditExperienceDialog,
+    RemoveExperienceComponent,
+    RemoveExperienceDialog,
+    ExperiencesPageComponent,
     AuthPageComponent,
     VerifyEmailComponent,
     ResetComponent,

@@ -1,6 +1,6 @@
 import { Tag } from 'src/app/models/Tag';
 
-export class Project {
+export class Experience {
     username: string;
     title: string;
     description: string;

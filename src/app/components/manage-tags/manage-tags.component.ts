@@ -4,10 +4,10 @@ import { TagService } from 'src/app/services/tag.service';
 import { Tag } from 'src/app/models/Tag';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
-import { ProjectService } from 'src/app/services/project.service';
+import { ExperienceService } from 'src/app/services/experience.service';
 import { LoginUser } from 'src/app/models/LoginUser';
 import { Observable } from 'rxjs';
-import { Project } from 'src/app/models/Project';
+import { Experience } from 'src/app/models/Experience';
 
 export interface DialogData {
   tags: Tag[]
@@ -49,7 +49,7 @@ export class ManageTagsComponent implements OnInit {
   }
 }
 
-const TAG_IN_USE_ERROR: string = 'Can\'t remove a tag being used in a project.';
+const TAG_IN_USE_ERROR: string = 'Can\'t remove a tag being used in an experience.';
 const GENERAL_REMOVE_ERROR: string = 'There was a problem with the request... Please try again after some time.';
 
 @Component({
@@ -70,7 +70,7 @@ export class ManageTagsDialog implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private router: Router,
     private tagsService: TagService,
-    private projectsService: ProjectService
+    private experienceService: ExperienceService
   ) { 
     // Get the logged in username else redirect to login page.
     if (localStorage.getItem('loggedInUsername') === null) {
@@ -97,10 +97,10 @@ export class ManageTagsDialog implements OnInit {
       // If the command is confirmed to remove a tag, attempt to remove it.
       if (confirmClick) {
         // Ensure tag isn't currently in use.
-        this.checkTagInUse(tagName).subscribe(projects => {
+        this.checkTagInUse(tagName).subscribe(experiences => {
           let tagInUse: boolean = false;
-          projects.forEach(project => {
-            project.tags.forEach(tag => {
+          experiences.forEach(experiences => {
+            experiences.tags.forEach(tag => {
               if (tag.name === tagName)
               tagInUse = true;
             });
@@ -148,9 +148,9 @@ export class ManageTagsDialog implements OnInit {
     this.dialogRef.close();
   }
 
-  checkTagInUse(tagName: string): Observable<Project[]> {
+  checkTagInUse(tagName: string): Observable<Experience[]> {
     let user: LoginUser = { username: this.loggedInUsername, password: undefined };
-    return this.projectsService.getProjects(user);
+    return this.experienceService.getExperiences(user);
   }
 
   clearErrorMessage(): void {

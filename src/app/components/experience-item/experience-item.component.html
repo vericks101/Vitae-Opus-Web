@@ -1,18 +1,18 @@
 <p>
     <mat-card class="card">
         <div class="title-flex">
-            <mat-card-title class="card-title">{{project.title}}</mat-card-title>
+            <mat-card-title class="card-title">{{experience.title}}</mat-card-title>
             <mat-card-title class="card-title-icons">
-                <app-edit-project [project]="project" (editProject)="receiveEdit($event)"></app-edit-project>
-                <app-remove-project (removeProject)="receiveRemoval()"></app-remove-project>
+                <app-edit-experience [experience]="experience" (editExperience)="receiveEdit($event)"></app-edit-experience>
+                <app-remove-experience (removeExperience)="receiveRemoval()"></app-remove-experience>
             </mat-card-title>
         </div>
         <mat-card-content class="card-content">
-            <p>{{project.description}}</p>
+            <p>{{experience.description}}</p>
         </mat-card-content>
         <mat-card-footer class="card-footer">
             <mat-chip-list disabled>
-                <ng-container *ngFor="let tag of project.tags">
+                <ng-container *ngFor="let tag of experience.tags">
                     <mat-chip>{{tag.name}}</mat-chip>
                 </ng-container>
             </mat-chip-list>

@@ -92,9 +92,9 @@ export class AuthPageComponent implements OnInit {
     ) { }
 
   ngOnInit(): void { 
-    // If the user is already logged in, redirect to the projects page.
+    // If the user is already logged in, redirect to the experiences page.
     if (localStorage.getItem('loggedInUsername') !== null) {
-        this.router.navigate(['projects']);
+        this.router.navigate(['experiences']);
     }
   }
 
@@ -141,7 +141,7 @@ export class AuthPageComponent implements OnInit {
       this.authService.loginUser(loginUser).subscribe(res => {
         this.disableLoadingIcon();
         this.setLoggedInUsername(res.username);
-        this.router.navigate(['projects']);
+        this.router.navigate(['experiences']);
       },
       (err) => {
         this.disableLoadingIcon();
@@ -159,7 +159,7 @@ export class AuthPageComponent implements OnInit {
   onRegisterClick() {
     this.clearResponseMessages();
     // If the provided registration details are valid, attempt to register the user and wait for a response.
-    // If the register response is successful, set the logged in username and redirect to the projects page.
+    // If the register response is successful, set the logged in username and redirect to the experiences page.
     // If the register response is not successful, present the error UI.
     if (this.firstNameFC.valid && this.lastNameFC.valid && this.emailFC.valid && this.registerUsernameFC.valid &&
       this.registerPasswordFC.valid && this.confirmPasswordFC.valid) {
